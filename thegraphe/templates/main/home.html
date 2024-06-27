@@ -1,0 +1,551 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{%  load static %}
+{%  block content %}
+<div class="ScrollTop ">
+<a href="#" class="scrollToTop"><img src="{% static 'assets/image/arrow-up.svg' %}" class="bounce" data-lazy data-src="{% static 'assets/image/arrow-up.svg' %}"></a>
+</div>
+<section class="banner">
+  <div class="row m-0 justify-content-center">
+    <div class="col-12">
+      <div class="banner_upper_sec">
+        <img src="{% static 'assets/image/banner_text.png' %}">
+        <p class="mt-3 mt-lg-5">Your Memorable Moments</p>
+        <div class="scroll_down">
+            <span>@2023</span>
+            <div class="mouse"></div>
+            <span>Graphe Weddings</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="parent pt-0">
+    <div class="div1"><img src="{% static 'assets/image/banner_gride/gr1.png' %}"></div>
+    <div class="div2"><img src="{% static 'assets/image/banner_gride/gr2.png' %}"> </div>
+    <div class="div3"> <img src="{% static 'assets/image/banner_gride/gr3.png' %}"></div>
+    <div class="div4"> <img src="{% static 'assets/image/banner_gride/gr4.png' %}"></div>
+    <div class="div5"> 
+      <video id="videoBG" autoplay muted loop>
+          <source src="{% static 'assets/image/wedding-collage.mp4' %}" type="video/mp4">
+      </video>
+    </div>
+    <div class="div6"> <img src="{% static 'assets/image/banner_gride/gr5.png' %}"></div>
+    <div class="div7"> <img src="{% static 'assets/image/banner_gride/gr6.png' %}"></div>
+    <div class="div8"> <img src="{% static 'assets/image/banner_gride/gr7.png' %}"></div>
+    <div class="div9"> <img src="{% static 'assets/image/banner_gride/gr8.png' %}"></div>
+  </div>
+  <!-- <div class="video-header full">
+    <video id="videoBG" autoplay muted loop>
+        <source src="assets/image/wedding-collage.mp4" type="video/mp4">
+    </video> -->
+  </div>
+  
+</section>
+<section class="wedo">
+  <div class="container g_category ju">
+    <h6 class="text-center" data-aos="fade-down" data-aos-duration="1000">We do all the wedding related stuff.</h6>
+    <div class="row m-0">
+      <ul>
+        {% for Category in Category %}
+        <li data-aos="fade-down" data-aos-duration="1300">
+          <a href="{{ Category.get_absolute_url }}">
+            <div class="category_icBg"><img src="{{Category.banner}}" data-lazy
+                data-src="{{Category.banner}}"></div>
+            <div>
+              {{Category.name}}
+              <span>View <i data-feather="chevron-right"></i></span>
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+<!--End Wedo Section-->
+
+<section class="most_popular">
+  <div class="container-fluid">
+      <h1 data-aos="fade-down" data-aos-duration="1000">Popular</h1>
+      <div class="row popular_temp justify-content-center">
+        <div class="swiper mostpopularSwiper">
+          <div class="swiper-wrapper">
+            {% for section in Popular %}
+            <div class="swiper-slide" data-aos="fade-right" data-aos-duration="2000">
+              <div class="card">
+                <a href="{{ section.get_absolute_url }}">
+                    <img src="{{section.image}}" data-lazy data-src="{{section.image}}">
+                    <div>
+                       <small> {{section.product_name}}</small>
+                       <a href="{{ section.get_absolute_url }}"><span>Enquire <i data-feather="chevron-right"></i></span></a>
+                    </div>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+            
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+  </div>
+  
+</section>
+<!--end_mostpopular-->
+
+<section class="caricature d-none">
+  <div class="container-fluid">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-lg-5 col-md-6 col-12">
+          <h1 data-aos="fade-down" data-aos-duration="1200">
+            <span>We are the pioneers of</span>
+            Caricature <br/>Invites
+          </h1>
+          <p data-aos="fade-up" data-aos-duration="1200">
+            Back in 2016, Lorem ipsum dolor sit amet consectetur. Amet amet lacus convallis tellus quam scelerisque pellentesque nullam nam. Viverra dolor morbi gravida at lorem fringilla consequat. Posuere vulputate amet euismod id morbi iaculis a nulla dui. Sollicitudin amet sed eu tincidunt id diam. Magna risus ac nullam egestas eget placerat gravida risus ac.
+          </p>
+          <a href="javascript:void(0);" class="ewq_btn" data-aos="fade-up" data-aos-duration="1800">ENQUIRE NOW</a>
+      </div>
+      <div class="col-lg-5 col-md-5 col-12">
+        <img src="{% static 'assets/image/cari1.png' %}" class="w-100 caricature_Pic" data-aos="zoom-in" data-aos-duration="1600">
+        <h6 data-aos="fade-up" data-aos-duration="1600">Sharika & Robin</h6>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end_caricature-->
+
+<section class="print_invites">
+  <div class="container-fluid">
+    <div class="row m-0 print_title">
+      <h1 data-aos="fade-down" data-aos-duration="1000">Print Invites</h1>
+      <p data-aos="fade-up" data-aos-duration="1400">
+        <span>Back in 2016, Lorem ipsum dolor sit amet consectetur. Amet amet lacus convallis tellus quam scelerisque pellentesque nullam nam.</span>
+      </p>
+    </div>
+    <div class="swiper print_inv">
+      <div class="swiper-wrapper">
+        {% for pr in Print %}   
+        <div class="swiper-slide">
+            <img src="{{pr.image}}">
+        </div>   
+        {% endfor %}
+      </div>
+    </div>
+    <div class="vall_btn">
+      <a href="{% url 'collection' %}">View All <i data-feather="chevron-right"></i></a>
+    </div>
+  </div>
+  <!--end_print_invites-->
+  <div class="custom_design">
+    <div class="container-fluid">
+      <div class="row m-0 align-items-center">
+          <h1 data-aos="fade-down" data-aos-duration="1000">Customize <span class="d-block">your design</span></h1>
+          <p data-aos="fade-up" data-aos-duration="1400">Lorem ipsum dolor sit amet consectetur. Amet amet lacus convallis tellus quam scelerisque.</p>
+      </div>
+      <div class="customize_div">
+        <a href="custom_form" data-aos="zoom-in" data-aos-duration="1800">
+          <img src="{% static 'assets/image/custom_img.png' %}">
+        </a>
+      </div>
+    </div>
+  </div>
+<!--end_custom_design-->
+</section>
+
+<section class="invites3d">
+  <div class="container-fluid">
+    <div class="row m-0 print_title ">
+      <h1 data-aos="fade-down" data-aos-duration="1000">3D Invites</h1>
+      <p>
+        <span data-aos="fade-up" data-aos-duration="1400">Lorem ipsum dolor sit amet consectetur. Amet amet lacus convallis tellus quam scelerisque pellentesque nullam nam. </span>
+      </p>
+    </div>
+    <div class="row m-0 p-lr-150 justify-content-center">
+      {% for Invite in Invites %}
+      <div class="col-6 col-lg-6 col-md-6 col-sm-6" >
+        <div class="card 3dpic" data-aos="fade-right" data-aos-duration="1300">
+          <a href="{% url 'collection' %}">
+            <img src="{{Invite.image}}" class="caricature_Pic">
+            <span>View All <i data-feather="chevron-right"></i></span>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+      
+      <!-- <div class="col-6 col-lg-4 col-md-6 col-sm-6">
+        <div class="card 3dpic" data-aos="fade-left" data-aos-duration="1300">
+          <a href="javascript:void(0);">
+            <img src="assets/image/ba2.png" class="caricature_Pic">
+            <span>View All <i data-feather="chevron-right"></i></span>
+          </a>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</section>
+<!--End_3D_invites-->
+
+<section class="counter_sec">
+  <div class="container-fluid">
+      <h1 data-aos="fade-down" data-aos-duration="1000">We can build your dream wedding invites. with experience gathered from</h1>
+      <ul id="counter" class="counter">
+          <li>
+              <span class="counter-value" data-count="3">0</span><b>+</b>
+              <p>years<p>
+          </li>
+          <li>
+              <span class="counter-value" data-count="200">0</span>
+              <p>Invites<p>
+          </li>
+          <li>
+              <span class="counter-value" data-count="48">0</span>
+              <p>Cities<p>
+          </li>
+          <li>
+              <span class="counter-value" data-count="12">0</span>                                                                                                   
+              <p>Awards<p>
+          </li>
+      </ul>
+  </div>
+</section>
+<!--end_counter-->
+
+<section class="stationery2 d-none d-lg-block d-md-block">
+  <div class="container-fluid">
+    <div class="col-12 print_title p-0">
+      <h1 data-aos="fade-down" data-aos-duration="1000">Stationeries</h1>
+    </div>
+    <div class="stationeryGrid">
+      <div class="div1 grid_div">
+        <img src="{% static 'assets/image/stationeries/st1.png' %}">
+        <span>Welcome <small>boards</small></span>
+      </div>
+      <div class="div2 grid_div">
+        <img src="{% static 'assets/image/stationeries/st2.png' %}">
+        <span>Itineraries</span>
+      </div>
+      <div class="div3 grid_div">
+        <img src="{% static 'assets/image/stationeries/st3.png' %}">
+        <span>Countdowns</span>
+      </div>
+      <div class="div4 grid_div">
+        <img src="{% static 'assets/image/stationeries/st4.png' %}">
+        <span>Menu card</span>
+      </div>
+      <div class="div5 grid_div">
+        <img src="{% static 'assets/image/stationeries/st5.png' %}">
+        <span>Welcome Note</span>
+      </div>
+      <div class="div6 grid_div">
+        <img src="{% static 'assets/image/stationeries/st6.png' %}">
+        <span>Bag Print</span>
+      </div>
+      <div class="div7 grid_div">
+        <img src="{% static 'assets/image/stationeries/st7.png' %}">
+        <span>Money Envelopes</span>
+      </div>
+      <div class="div8 grid_div">
+        <img src="{% static 'assets/image/stationeries/st8.png' %}">
+        <span>Attire Guide</span>
+      </div>
+      <div class="div9 grid_div">
+        <img src="{% static 'assets/image/stationeries/st9.png' %}">
+        <span>Standees</span>
+      </div>
+      <div class="div10 grid_div">
+        <img src="{% static 'assets/image/stationeries/st10.png' %}">
+        <span>Thank you <small>note</small></span>
+      </div>
+      <div class="div11 grid_div">
+        <img src="{% static 'assets/image/stationeries/st11.png' %}">
+        <span>Standees</span>
+      </div>
+      <div class="div12 grid_div">
+        <img src="{% static 'assets/image/stationeries/st18.png' %}">
+        <span>Stickers</span>
+      </div>
+      <div class="div13 grid_div">
+        <img src="{% static 'assets/image/stationeries/st12.png' %}">
+        <span>Placards</span>
+      </div>
+      <div class="div14 grid_div">
+        <img src="{% static 'assets/image/stationeries/st13.png' %}">
+        <span>RSVP form</span>
+      </div>
+      <div class="div15 grid_div">
+        <img src="{% static 'assets/image/stationeries/st14.png' %}">
+        <span>Hotel check-in <small>tags</small></span>
+      </div>
+      <div class="div16 grid_div">
+        <img src="{% static 'assets/image/stationeries/st15.png' %}">
+        <span>Luggage Tags</span>
+      </div>
+      <div class="div17 grid_div">
+        <img src="{% static 'assets/image/stationeries/st16.png' %}">
+        <span>Filters tags</span>
+      </div>
+      <div class="div18 grid_div">
+        <img src="{% static 'assets/image/stationeries/st17.png' %}">
+        <span>Key Card</span>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end_stationeryGrid desktop-->
+
+<section class="stationery2 d-block d-lg-none d-md-none">
+  <div class="container-fluid">
+    <div class="col-12 print_title p-0">
+      <h1 data-aos="fade-down" data-aos-duration="1000" class="mb-0">Stationeries</h1>
+    </div>
+    <div class="swiper staGrid mt-5 mb-4">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img src="{% static 'assets/image/stationeries/st1.png' %}">
+            <span>Welcome <small>boards</small></span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st2.png' %}">
+          <span>Itineraries</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st3.png' %}">
+          <span>Countdowns</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st4.png' %}">
+          <span>Name tag</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st5.png' %}">
+          <span>Welcome Note</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st6.png' %}">
+          <span>Hotel Check-in Tags</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st7.png' %}">
+          <span>Money Envelopes</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st8.png' %}">
+          <span>Bag Print</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st9.png' %}">
+          <span>Standees</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st10.png' %}">
+          <span>Thank you note</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st11.png' %}">
+          <span>Standees</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st1.png' %}">
+          <span>Stickers</span>
+        </div>
+        <div class="swiper-slide">
+          <img src="{% static 'assets/image/stationeries/st13.png' %}">
+          <span>RSVP form</span>
+        </div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+<!--end_stationeryGrid mobile-->
+
+<section class="logohas">
+  <div class="container-fluid">
+    <div class="row m-0 print_title p-0">
+      <h1 data-aos="fade-down" data-aos-duration="1000">Monograms</h1>
+    </div>
+    <div class="row m-0">
+      <ul class="mono_list">
+        {% for mono in logo %}
+        <li><img src="{{mono.logo}}"></li>
+        {% endfor %}
+        
+      </ul>
+      <div class="d-flex justify-content-center">
+        <a href="#!" class="exp_btn btn">Explore</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end_logohas-->
+
+<section class="stationery">
+  <div class="container-fluid">
+    <div class="row m-0 justify-content-between">
+      <div class="col-12 col-lg-6 col-md-6 print_title p-0">
+        <h1 data-aos="fade-down" data-aos-duration="1000">Hashtags</h1>
+        <p data-aos="fade-up" data-aos-duration="1400">
+          <span class="w-100">Lorem ipsum dolor sit amet consectetur. Amet amet lacus convallis <span class="d-lg-block w-100">tellus quam scelerisque pellentesque nullam nam.</span></span>
+        </p>
+        <a href="#!" class="exp_btn btn" data-aos="fade-up" data-aos-duration="1700">Enquire</a>
+      </div>
+      <div class="col-12 col-lg-5 col-md-4">
+        <div class="card">
+          <P><span>Vedant+Aashna</span>VedKiHoGayiAash</P>
+        </div>
+        <!--<div class="stati1" data-aos="fade-down" data-aos-duration="1800">
+          <span>Luggage Tags</span>
+          <img src="assets/image/logohas.png" class="caricature_Pic2">
+        </div>
+        <div class="stati1" data-aos="fade-right" data-aos-duration="2000">
+          <span>Luggage Tags</span>
+          <img src="assets/image/ba2.png" class="caricature_Pic2">
+        </div>
+        <div class="stati1" data-aos="fade-up" data-aos-duration="1800">
+          <span>Luggage Tags</span>
+          <img src="assets/image/b6.png" class="caricature_Pic2">
+        </div>-->
+      </div>  
+    </div>
+  </div>
+</section>
+<!--end_stationery-->
+
+<section class="wedding_website">
+<div class="container">
+  <div class="row m-0 justify-content-center">
+    <div class="col-12 col-lg-8 col-md-8 col-sm-10">
+      <div class="card">
+        <h1 data-aos="fade-down" data-aos-duration="1000">Wedding Websites</h1>
+        <p data-aos="fade-up" data-aos-duration="1400">Lorem ipsum dolor sit amet consectetur. Sit massa viverra faucibus tortor feugiat pellentesque aliquet ipsum.
+          <span><a href="https://weddings.thegraphe.com/" target="_blank">Enquire</a></span>
+        </p>
+        <img src="{% static 'assets/image/wedding_img1.png' %}" data-aos="fade-up" data-aos-duration="2000">
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!--End_wedding_website-->
+<div class="container">
+  <div class="row m-0 justify-content-center">
+    <div class="col-12 col-lg-8 col-md-8 col-sm-10">
+      <div class="">
+          <h1 style="margin: 20px 20px;" data-aos="fade-down" data-aos-duration="1000">Insta Post</h1>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="instafeed-container"></div>
+  <style>
+    #instafeed-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 10px; /* Adjust the gap between images */
+    }
+  
+    #instafeed-container a {
+      display: block;
+      overflow: hidden;
+      border: 1px solid #ddd; /* Add a border for better visibility */
+      border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+    }
+  
+    #instafeed-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+<section class="testimonial">
+  <div class="container-fluid p-0">
+    <div class="row m-0 justify-content-between">
+      
+      <div class="col-12 col-lg-5 col-md-5 order-2 order-lg-1 order-md-1">
+        <img src="{% static './assets/image/b8_new.png' %}" class="w-100 caricature_Pic" data-aos="fade-left" data-aos-duration="1600">
+      </div>
+      <div class="col-12 col-lg-5 col-md-7 pe-lg-5 order-1 order-lg-2 order-md-2">
+        <!-- <div class="print_title p-0">
+          <h1 data-aos="fade-down" data-aos-duration="1000">Client <br/>Testimonials</h1>
+        </div> -->
+        <div class="swiper feedback">
+          <div class="swiper-wrapper">
+            {% for testimonal in testimonial %}
+            <div class="swiper-slide">
+              <div class="card_testimonial">
+                <p>
+                  <small class="d-block q1"><img src="{% static 'assets/image/q1.svg' %}" data-lazy data-src="{% static 'assets/image/q1.svg' %}"></small>
+                  <span class="testimonial_text">{{testimonal.text}}</span>
+                  <small class="d-block q2"><img src="{% static 'assets/image/q2.svg' %}" data-lazy data-src="{% static 'assets/image/q2.svg' %}"></small>
+                  <span>-{{testimonal.name}}</span>
+                </p>
+              </div>
+            </div>
+            {% endfor %}
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-5 col-md-5 p-0 d-none">
+        <div class="swiper feedback">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="card_testimonial">
+                <p>
+                  <small class="d-block q1"><img src="{% static 'assets/image/q1.svg' %}" data-lazy data-src="{% static 'assets/image/q1.svg' %}"></small>
+                  <span class="testimonial_text">Totally Amazing invite, no words, great team, very helpful and the best ever.</span>
+                  <small class="d-block q2"><img src="{% static 'assets/image/q1.svg' %}" data-lazy data-src="{% static 'assets/image/q1.svg' %}"></small>
+                  <span>-Anonymous</span>
+                </p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="card_testimonial">
+                <p>
+                  <small class="d-block q1"><img src="{% static 'assets/image/q1.svg' %}" data-lazy data-src="{% static 'assets/image/q1.svg' %}"></small>
+                  <span class="testimonial_text">Totally Amazing invite, no words, great team, very helpful and the best ever.</span>
+                  <small class="d-block q2"><img src="{% static 'assets/image/q1.svg' %}" data-lazy data-src="{% static 'assets/image/q1.svg' %}"></small>
+                  <span>-Anonymous2</span>
+                </p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="card_testimonial">
+                <p>
+                  <small class="d-block q1"><img src="{% static 'assets/image/q1.svg' %}" data-lazy data-src="{% static 'assets/image/q1.svg' %}"></small>
+                  <span class="testimonial_text">Totally Amazing invite, no words, great team, very helpful and the best ever.</span>
+                  <small class="d-block q2"><img src="{% static 'assets/image/q1.svg' %}" data-lazy data-src="{% static 'assets/image/q1.svg' %}"></small>
+                  <span>-Anonymous3</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End_testimonial-->
+
+<section class="app_section">
+  <div class="container-fluid">
+      <div class="row m-0 justify-content-between align-items-center">
+          <div class="col-12 col-lg-7 col-md-7 col-sm-12">
+              <h1 data-aos="fade-down" data-aos-duration="1000">Plan your <span>dream wedding</span> <span>with Wedskey!</span></h1>
+              <p data-aos="fade-up" data-aos-duration="1400">Download the app now and get top entertainment & wedding updates.</p>
+              <div class="play_store_btn">
+                  <a href="" data-aos="fade-up" data-aos-duration="1600"><img src="{% static 'assets/image/Google_Play.png' %}" data-lazy data-src="{% static 'assets/image/Google_Play.png' %}">Get it on Google play</a>
+                  <a href="" data-aos="fade-up" data-aos-duration="2400"><img src="{% static 'assets/image/Apple_Logo.png' %}" data-lazy data-src="{% static 'assets/image/Apple_Logo.png' %}">Download on the app store</a>
+              </div>
+          </div>
+          <div class="col-12 col-lg-5 col-md-5 col-sm-12 wedskey_img">
+              <img src="{% static 'assets/image/app_img.png' %}" class="w-100" data-lazy data-src="{% static 'assets/image/app_img.png' %}" data-aos="zoom-in" data-aos-duration="1800">
+          </div>
+      </div>
+  </div>
+</section>
+{%  endblock %}

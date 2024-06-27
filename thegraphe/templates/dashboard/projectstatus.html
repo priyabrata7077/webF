@@ -1,0 +1,69 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="bg-light">
+    <div class="container-fluid dashboard-heading">
+        <div class="d-md-flex d-block justify-content-between align-items-center">
+            <h4 class="mb-0 text-black">Project Status</h4>
+            <div class="d-md-flex d-block justify-content-md-end justify-content-start align-content-center align-items-center l_btn">
+                <a class="add-button mt-4 me-3" href="{% url 'export_to_excel' %}">
+                    <i class="bx bx-download me-2"></i>Export
+                </a>
+                <select id="sources" class="custom-select sources form-control mt-4" placeholder="Please Select">
+                    <option value="">All</option>
+                    {% for status in unique_statuses %}
+                    <option value="{{ status }}">{{ status }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row m-0 mt-4 mt-lg-5">
+            <div class="col-lg-12 mb-2 tablecard">
+                <table id="example" class="table table-hover dt-responsive nowrap" style="width:100%">
+                    <thead style="color: white;">
+                        <tr>
+                            <th>ID</th>
+                            <th>Templates</th>
+                            <th>Templates Name</th>
+                            <th>Clients Name</th>
+                            <th>Invite Type</th>
+                            <th><i class='bx bx-calendar'></i> Starts</th>
+                            <th><i class='bx bx-calendar'></i> End</th>
+                            <th>Status</th>
+                            <th>Allocate</th>
+                            <th><i class='bx bx bx-calendar'></i> Deadline</th>
+                            <th class="width-50">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-list">
+                        {% include 'dashboard/orders_list.html' %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#sources').change(function() {
+        var status = $(this).val();
+        console.log("Selected status:", status); // Log the selected status for debugging
+        $.ajax({
+            url: "{% url 'filter_orders' %}",
+            data: {
+                'status': status
+            },
+            success: function(data) {
+                $('#orders-list').html(data);
+            },
+            error: function(xhr, status, error) {
+                console.error('Status update failed: ', error);
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

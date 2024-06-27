@@ -1,0 +1,54 @@
+{% load static %}
+ </article>
+</main>
+<footer>
+    <div class="footer_top">
+      <div class="container-fluid">
+        <div class="row m-0">
+          <div class="footer_logo">
+            <img src="{% static 'assets/image/footer-logo.png' %}" data-lazy data-src="{% static 'assets/image/footer-logo.png' %}">
+          </div>
+        </div>
+        <div class="row m-0 mt-4 mt-lg-5 mt-md-5">
+          <div class="col-12 col-md-4 col-lg-5">
+            <ul class="detail_section">
+              <li><i data-feather="phone"></i><a href="#">+91 9826714541</a></li>
+              <li><i data-feather="map-pin"></i><a href="#">Godrej Genesis Building, 11th Floor EN-34 EN Block <br/>West
+                  Bengal Sector V Bidhannagar <br/>Kolkata 700105</a></li>
+              <li><i data-feather="mail"></i><a href="#">connect@thegraphe.com</a></li>
+            </ul>
+            <ul class="social_icon">
+              <li><a href=""><img src="{% static 'assets/image/insta.svg' %}" alt=""></a></li>
+              <li><a href=""><img src="{% static 'assets/image/youtube.svg' %}" alt=""></a></li>
+              <li><a href=""><img src="{% static 'assets/image/ping.svg' %}" alt=""></a></li>
+              <li><a href=""><img src="{% static 'assets/image/facebook.svg' %}" alt=""></a></li>
+              <li><a href=""><img src="{% static 'assets/image/s5.svg' %}" alt=""></a></li>
+              <li><a href=""><img src="{% static 'assets/image/s6.svg' %}" alt=""></a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 footer_ul ms-auto">
+            <h6>QUICK LINKS</h6>
+            <ul class="anchor  ">
+              <li> <a href="{% url 'home' %}">Home</a></li>
+              <li> <a href="#">About Us</a></li>
+              <li> <a href="{% url 'profile' %}">My Account</a></li>
+              <li> <a href="">Feedback</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 footer_ul">
+            <h6>HELP</h6>
+            <ul class="anchor  ">
+              <li><a href="faqs">FAQS</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="privacy">Privacy Policy</a></li>
+              <li><a href="terms_con">Terms &amp; Conditions</a></li>
+            </ul>
+          </div>
+          <div class="col-12 mt-5 text-left">
+            <p>© 2022 Graphē Weddings. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</footer>
+  <!--end footer-->

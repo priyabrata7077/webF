@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Notification{% endblock %}
+{%  load static %}
+{%  block content %}
+
+<section class="notification_bodt">
+    <div class="container">
+        <div class="row m-0">
+            {% for notify in notify %}
+                <div class="notification-ui_dd-content">
+                    <div class="notification-list notification-list--unread">
+                        <div class="notification-list_content">
+                            <div class="notification-list_img">
+                                <img src="{% static 'assets/image/bell.png' %}">
+                            </div>
+                            <div class="notification-list_detail">
+                                <h6>{{ notify.user.username }} <span>{{ notify.header }}</span></h6>
+                                <p>{{ notify.paragraph }}
+                                    <small>{{ notify.timestamp|date:"F d, Y" }} ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

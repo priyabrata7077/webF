@@ -1,0 +1,89 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}add_collection{% endblock %}
+{%  load static %}
+{%  block content %}
+<div class="container-fluid dashboard-heading">
+    <div class=" d-md-flex d-sm-block justify-content-between align-items-center">
+        <h4 class="mb-5"><a href="rsvplist" class="text-black"><i class="bx bx-arrow-back"></i></a>
+            Edit Rsvplist <span class="badge bg-success ms-3  approved-badge">Approved</span></h4>
+        
+
+    </div>
+<div class="card manage-user-container mb-4 p-3">
+    <form class="row primary-col m-0" method="post">
+        {% csrf_token %}
+        
+        <div class="col-lg-12 ">
+            <h5 class="client_heading">Details</h5>
+        </div>
+        
+        <div class="col-lg-2">
+            <div class="form-group mb-3">
+                <div class="form-title d-flex justify-content-between">
+                    <label for="name">Client Name</label>
+                </div>
+                <input type="text" name="name" id="name"  class="form-control form_style" value="{{rsvp.name}}">
+            </div>
+        </div>
+        
+        
+        <div class="col-lg-2">
+            <div class="form-group mb-3">
+                <div class="form-title d-flex justify-content-between">
+                    <label for="email">Email</label>
+                    <!-- <p class="text-muted"></p> -->
+                </div>
+                <input type="text" name="email" id="email"  class="form-control form_style" value="{{rsvp.email}}">
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group mb-3">
+                <div class="form-title d-flex justify-content-between">
+                    <label for="phone">Phone</label>
+                    <!-- <p class="text-muted"></p> -->
+                </div>
+                <input type="text"  name="phone" id="phone" class="form-control form_style" value="{{rsvp.phone}}">
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group mb-3">
+                <div class="form-title d-flex justify-content-between">
+                    <label for="event_details">Event Details </label>
+                    <!-- <p class="text-muted"></p> -->
+                </div>
+                <input type="text" class="form-control form_style" name="event_details" id="event_details" value="{{rsvp.event_details}}">
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group mb-3">
+                <label for="status">Status</label>
+                <div class="input-div position-relative">
+                    <select class="form-control form_style" name="status" id="status">
+                        <option value="Activate" {% if rsvp.status == 'Activate' %}selected{% endif %}>Activate</option>
+                        <option value="Deactivate" {% if rsvp.status == 'Deactivate' %}selected{% endif %}>Deactivate</option>
+                        <option value="Pending" {% if rsvp.status == 'Pending' %}selected{% endif %}>Pending</option>
+                        <option value="Working" {% if rsvp.status == 'Working' %}selected{% endif %}>Working</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button  class="add-form" type="submit">Submit</button>
+        </div>
+       
+    </form>
+</div>
+<form class="collect_d_check" id="buy-now-form"  enctype="multipart/form-data" action="post">
+    {% csrf_token %}
+<div class="d-flex justify-content-center">
+    <button type="submit"><a class="add-button desktop-button ms-3" href="{% url 'rsvp_order' %}">Send to order creation</a></button>
+                  <!-- Hidden input fields for product details -->
+                  <input type="hidden" name="name" value="{{ rsvp.name }}">
+                  <input type="hidden" name="email" value="{{ rsvp.email }}">
+                  <input type="hidden" name="phone" value="{{ rsvp.phone }}">
+                  <input type="hidden" name="event_details" value="{{ rsvp.event_details }}">
+                  <input type="hidden" name="status" value="{{ rsvp.status }}">                  
+</div>
+</form>
+</div>
+{% endblock %}

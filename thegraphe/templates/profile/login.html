@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}profile{% endblock %}
+{%  load static %}
+{% load socialaccount %} 
+{%  block content %}
+
+
+<section class="inner_pagebody login_body login2">
+    <div class="container-fluid">
+        {% if messages %}
+        {% for message in messages %}
+        
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{message}}
+          <button type="button" class= "close" data-dismiss ="alert" aria-label = "Close">
+              <span aria-hidden = "true">&times;</span></button>
+        </div>
+        
+      {% endfor %}
+    {% endif %}
+        <div class="row m-0 justify-content-lg-end justify-content-center align-items-end">
+          <div class="col-12 col-lg-5 col-md-7">
+            <div class="login_div">
+              <h3>Sign In</h3>
+              <form  method="post" class="loginform">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="username" class="form-label">Full Name</label>
+                  <input name="username" type="text" placeholder="username" id="username" class="form-control" autocomplete="username">
+                </div> 
+                
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" placeholder="Password" name="password" id="password" class="form-control">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+              <div class="or_img"> 
+                
+                <ul class="login_social">
+                  <li><a href="{% provider_login_url 'google'%}" ><img src="{% static 'assets/image/g.svg' %}"></a></li>
+                  <li><a href="{% url 'social:begin' 'facebook' %}"><img src="{% static 'assets/image/fb.svg' %}"></a></li>
+                  <li><a href="javascript:void(0);"><img src="{% static 'assets/image/apple.svg' %}"></a></li>
+                </ul>
+                <p>
+                  New user? <a href="{% url 'signup' %}">Create an account</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  
+  {% endblock %}

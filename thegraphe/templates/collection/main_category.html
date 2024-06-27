@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Category{% endblock %}
+{%  load static %}
+{%  block content %}
+<section class="hero">
+    <div class="container-fluid text-center">
+      <h1 class="display-2 ">Category</h1>
+      <p class="text-uppercase">Lorem ipsum dolor sit amet, consectetur adipiscing elitFusce ut mi justo</p>
+    </div>
+  </section>
+
+ 
+    <section class="wedo">
+      <div class="container g_category ju">
+        <h6 class="text-center" data-aos="fade-down" data-aos-duration="1000">We do all the wedding related stuff.</h6>
+        <div class="row m-0">
+          <ul>
+            {% for main_category in main_categories %}
+            <li data-aos="fade-down" data-aos-duration="1300">
+                <a href="{{ main_category.get_absolute_url }}">
+                    
+                    <div>
+                        {{ main_category.name }}
+                        <span>View <i data-feather="chevron-right"></i></span>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+  {% endblock %}

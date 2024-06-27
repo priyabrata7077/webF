@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}collection{% endblock %}
+{%  load static %}
+{%  block content %}
+<section class="cart_body">
+    <div class="container-fluid">
+      <h1 class="view_similar p-0 ">Payment Options</h1>
+      <div class="row payment_div m-0">
+        <div class="accordion">
+          <div class="accordion-head">
+              <h4><span class="arrow"></span> Cards </h4>
+          </div>
+          <div class="accordion-body">
+            <form class="row m-0 w-50">
+              {% csrf_token %}
+              <div class="col-12 col-lg-6">
+                <label class="cartTotalAmount">
+                  {% if cart_total_amount %}
+                      Pay: {{ cart_total_amount }}
+                  {% else %}
+                      Total: <small>₹</small>{{ product.price }}
+                  {% endif %}
+              </label>
+          
+              </div>
+              <div class="col-12 col-lg-6">
+                <label for="username" class="form-label">Full Name</label>
+                <input type="text" name="username" id="username" class="form-control" value="{{ user.username }}" autocomplete="username">
+
+              </div>
+              <div class="col-12 col-lg-6">
+                <label for="cardNumber">Card Number</label>
+                <input type="number" class="form-control" id="cardNumber" name="cardNumber" placeholder="Card Number">
+              </div>
+              <div class="col-6 col-lg-3">
+                <label for="securityCode">Security Code</label>
+                <input type="number" class="form-control" id="securityCode" name="securityCode" placeholder="Security Code">
+              </div>
+              
+              <div class="col-6 col-lg-3">
+                <div class="form-group position-relative">
+                  <label class="floatingInput">Card Expiration</label>
+                  <div class='input-group date' id='startDate'>
+            
+                    <span class="input-group-addon input-group-text"><i data-feather="calendar"></i></span>
+                    <input type='text' class="form-control" name="startDate" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="accordion-head">
+            <h4><span class="arrow"></span> Use UPI </h4>
+          </div>
+          <div class="accordion-body">
+              <ul class="upi_payment">
+                <li>
+                  <a href="gpay.com"><img src="{% static 'assets/image/google_pay.svg' %}">Google Pay</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);"><img src="{% static 'assets/image/phonepe.svg' %}">PhonePe</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);"><img src="{% static 'assets/image/paytm.svg' %}">Paytm</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);"><img src="{% static 'assets/image/other.svg' %}">Other</a>
+                </li>
+              </ul>
+          </div>
+          <div class="accordion-head">
+            <h4><span class="arrow"></span> Net Banking</h4>
+          </div>
+          <div class="accordion-body">
+            No Data
+          </div>
+          <div class="accordion-head">
+            <h4><span class="arrow"></span> Wallet</h4>
+          </div>
+          <div class="accordion-body">
+            No Data
+          </div>
+          <form class="row m-0 w-50" method="post" action="{% url 'thanks' %}">
+            {% csrf_token %}
+            <div class="col-12 col-lg-6">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="payment_option" value="COD" required>
+                    Cash on Delivery 
+                </label>
+                <label class="price">
+                    Product: {{ request.GET.product_name }} <br>
+                    Type: {{ request.GET.product_type }} <br>
+                    image: {{ request.GET.image }}
+                    Price: ₹{% if cart_total_amount %}<br>
+                    Pay: {{ cart_total_amount }}
+                {% else %}
+                    
+                    {{ request.GET.price }}
+                {% endif %}
+                </label>
+                
+            </div>
+            <div class="col-12 paymentbottom"><button type="submit" class="btn">Pay Now <i data-feather="arrow-right" class="ms-2"></i></button></div>
+            <input type="hidden" name="product_name" value="{{ request.GET.product_name }}">
+            <input type="hidden" name="price" value="{{ request.GET.price }}">
+            <input type="hidden" name="product_type" value="{{ request.GET.product_type }}">
+            <input type="hidden" name="image" value="{{ request.GET.image }}">
+        </form>
+        </div>
+        <form class="row m-0 w-50" method="post" action="{% url 'thanks' %}">
+          {% csrf_token %}
+          <!-- Other form fields here -->
+          <div class="col-12 paymentbottom">
+              <p>Order confirmation email will be sent to <a href="javascript:void(0);">priyabrata@thegraphe.com</a></p>
+              <button type="submit" class="btn">Pay Now <i data-feather="arrow-right" class="ms-2"></i></button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </section>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  // Autofill user details
+  $(document).ready(function() {
+    // Check if the user is logged in or previously entered details are available
+    var storedUserDetails = JSON.parse(localStorage.getItem('userDetails'));
+    if (storedUserDetails) {
+      $('#first_name').val(storedUserDetails.first_name);
+      $('#last_name').val(storedUserDetails.last_name);
+      // ... Populate other fields as needed
+    }
+
+    // Auto detect product price
+    var productId = $('#product_id').val(); // Change to the actual field ID
+    $.get('/get-product-price/' + productId + '/', function(data) {
+      $('#product_price').val(data.price);
+    });
+  });
+
+  // Store user details on form submission
+  $('form').on('submit', function() {
+    var userDetails = {
+      first_name: $('#first_name').val(),
+      last_name: $('#last_name').val(),
+      // ... Store other fields as needed
+    };
+    localStorage.setItem('userDetails', JSON.stringify(userDetails));
+  });
+  </script>
+{% endblock %}

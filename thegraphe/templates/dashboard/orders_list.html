@@ -1,0 +1,27 @@
+{% load static %}
+{% for order in orders %}
+<tr>
+    <td data-label="ID">#{{ order.order_number }}</td>
+    <td data-label="Templates">
+        <img src="/{{ order.image }}" class="temp_img">
+    </td>
+    <td data-label="Templates Name"><p>{{ order.product_name }}</p></td>
+    <td data-label="username"><a>{{ order.user.username }}</a></td>
+    <td data-label="Invite Type"><p>{{order.product_type}}</p></td>
+    <td data-label="Starts">{{ order.order_date|date:"D, M d, y " }}</td>
+    <td data-label="End">{{order.deadlines}}</td>
+    <td data-label="Status"><span class="badge bg-success">{{order.status}}</span></td>
+    <td data-label="Allocate">
+        <div class="project_member">
+            <a href="javascript:void(0);" class="full" data-toggle="tooltip" data-placement="top" title="{{order.Allocate}}">
+                <img src="{% static 'assets/image/avatar-13.png' %}">
+            </a>
+        </div>
+    </td>
+    <td data-label="End">{{order.date}}</td>
+    <td data-label="Action">
+        <a href="{% url 'edit_project_status' order.id %}" class="edtBtn" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bx bxs-edit"></i></a>
+        <a href="{% url 'project_view_status' order.id %}" class="edtBtn" data-toggle="tooltip" data-placement="top" title="View"><img src="{% static 'assets/image/eye.svg' %}" class="view_img"></a>
+    </td>
+</tr>
+{% endfor %}

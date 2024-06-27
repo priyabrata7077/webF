@@ -1,0 +1,48 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}rsvp{% endblock %}
+{%  load static %}
+{%  block content %}
+
+<div class="bg-light">
+    <div class="container-fluid dashboard-heading">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 text-black">Rsvp List</h4>
+            <button class="add-form "><i class="bx bx-download me-2"></i>Export</button>
+        </div>
+        <div class="row m-0 mt-4 mt-lg-5">
+            <div class="dashboard-container-inside timeline ">     
+                <div class="dashboard-container-inside-body innerTable ">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Event Details</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for rsvps in rsvp %}
+                            <tr>
+                                <td data-label="Client Name">{{rsvps.name}}</td>
+                                <td data-label="Email">{{rsvps.email}}</td>
+                                <td data-label="Invoice ID">{{rsvps.phone}}</td>
+                                <td data-label="Total">{{rsvps.event_details}}</td>
+                                <td data-label="Status"><span class="badge bg-warning">{{ rsvps.status|default:"Pending" }}</span></td>
+                                <td>
+                                    <a href="{% url 'edit_rsvp' rsvps.id %}" class="edtBtn" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bx bxs-edit"></i></a>
+                                    <!-- <a href="#" class="edtBtn" data-toggle="tooltip" data-placement="top" title="View"><img src="{% static 'assets/image/eye.svg' %}" class="view_img"></a> -->
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,579 @@
+{% extends 'dashboard/base.html' %}
+{%  load static %}
+{%  block content %}
+<div class="bg-light">
+    <div class="container-fluid  dashboard-heading">
+        <p class=" d-flex align-items-center mb-3">Welcome {{ user.username }} <i class="bx bxs-hand bx-tada ml-3"></i></p>
+        <h4 class=" mb-4">Dashboard</h4>
+
+        <div class="count-container count-container-first row mb-5 ">
+            <div class="col-lg-3 col-md-6 col-sm-6 db-style">
+                <div class="count-container-inside">
+                    <div class="count-icon count-orange">
+                        <img src="{{ user.userprofile.image.url }}" alt="">
+                    </div>
+                    <div class="count-text">
+                        <h3 class="mb-2"> {{ today_orders }}</h3>
+                        <p>Today's Orders</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 db-style">
+                <div class="count-container-inside">
+                    <div class="count-icon count-orange">
+                        <img src="{% static '/dash/assets/image/list.png' %}" alt="">
+                    </div>
+                    <div class="count-text">
+                        <h3 class="mb-2">{{ user_today_orders }}</h3>
+                        <p>Today's Clients</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 db-style">
+                <div class="count-container-inside">
+                    <div class="count-icon count-orange">
+                        
+                        <img src="{% static '/dash/assets/image/add-user.png' %}" alt="">
+                    </div>
+                    <div class="count-text">
+                        <h3 class="mb-2">{{ pending_order_count }}</h3>
+                        <p>Pending Orders</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 db-style">
+                <div class="count-container-inside">
+                    <div class="count-icon count-orange">
+                        <img src="{% static '/dash/assets/image/hand-graving-smartphone.png' %}" alt="">
+                    </div>
+                    <div class="count-text">
+                        <h3 class="mb-2">{{ total_orders }}</h3>
+                        <p>Total Orders</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="count-container row">
+            {% comment %} <div class="col-12 mb-5">
+                <div class="dashboard-container-inside">
+                    <div class="dashboard-container-inside-header d-block  align-items-center mb-3">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="">Calendar</h4>
+                            <a href="calendar">View</a>
+                        </div>
+                        <!-- calendar -->
+                        <div class="row calendar_section px-lg-3 p-0 pt-lg-4 pt-0">
+                            <div class="col-lg-2 col-md-4 col-5 current_date mt-2">
+                                <p class="mb-2 fs-4" id="cweek"></p>
+                                <p id="cdate"></p>
+                            </div>
+                            <div class="col-lg-10 col-12 week_calendar">
+                                <div class="week_calendar mt-2" id="calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+            <div class="col-12 mb-5">
+                <div class="dashboard-container-inside">
+                    <div
+                        class="dashboard-container-inside-header d-flex justify-content-between align-items-center mb-3">
+                        <h4>New Project</h4> <a href="{% url 'Project' %}" class="me-lg-2 me-0">View All</a> <button class="add-button ms-lg-3 ms-1"><a class="add-button desktop-button ms-3" href="{% url 'rsvp_order' %}">Add Order</a></button>
+
+
+                    </div>
+                    <div class="dashboard-container-inside-body">
+                        <table id="example" class="table table-hover dt-responsive nowrap " style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Templates</th>
+                                    <th>Templates Name</th>
+                                    <th>Clients Name</th>
+                                    <th>Invite Type</th>
+                                    <th><i class='bx bx-calendar'></i> Starts</th>
+                                    <th><i class='bx bx-calendar'></i> End</th>
+                                    <th>Status</th>
+                                    <th>image</th>
+
+                                    <th><i class='bx bx bx-calendar'></i> Deadline</th>
+                                    <th class="width-50">Action</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                            {% for order in orders|dictsortreversed:"order_date"|slice:":5" %}
+                        <tr>
+                            <td data-label="ID">#{{ order.order_number }}</td>
+                            <td data-label="Templates">
+                                <img src="/{{ order.image }}" class="temp_img">
+                            </td>
+                            
+                            <td data-label="Templates Name">
+                                <p>{{ order.product_name }}</p>
+                               </td>
+                            <td data-label="username"><a>{{ order.user.username }}</a></td>
+                            <td data-label="Invite Type"><p>{{ order.product_type }}</p></td>
+                            <td data-label="Starts">{{ order.order_date|date:"D, M d, y " }}</td>
+                            <td data-label="End">23-11-2022</td>
+                            <td data-label="Status"><span class="badge bg-success">{{ pending.status|default:"activate" }}</span></td>
+                            <td data-label="Allocate">
+                                <div class="project_member">
+                                    
+                                        <img src="{{ order.user.userprofile.image.url }}" class="temp_img">
+                                    
+                                </div>
+                            </td>
+                            <td data-label="date">{{ order.date}}</td>
+                            <td data-label="Action">
+                                <a href="{% url 'edit_project_status' order.id %}" class="edtBtn" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bx bxs-edit"></i></a>
+                                <a href="{% url 'project_view_status' order.id %}" class="edtBtn" data-toggle="tooltip" data-placement="top" title="View"><img src="{% static 'assets/image/eye.svg' %}" class="view_img"></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5 col-12">
+                <div class="dashboard-container-inside">
+                    <div
+                        class="dashboard-container-inside-header d-flex justify-content-between align-items-center mb-3">
+                        <h4>Earning Reports</h4>
+                        <select name="value" id="value" class="dashboard-button-black">
+                            <option value="Weekly">Show by week</option>
+                            <option value="monthly">Show by month</option>
+                        </select>
+                    </div>
+                    <div class="dashboard-container-inside-body">
+                        <!-- tabs -->
+                        <div class="graph-tab-container">
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-home" type="button" role="tab"
+                                        aria-controls="pills-home" aria-selected="true">
+                                        <div>
+                                            <i class='bx bx-cart-alt'></i>
+                                            Orders
+                                        </div>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-profile" type="button" role="tab"
+                                        aria-controls="pills-profile" aria-selected="false">
+                                        <div>
+                                            <i class='bx bx-bar-chart-alt'></i>
+                                            Sales
+                                        </div>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-contact" type="button" role="tab"
+                                        aria-controls="pills-contact" aria-selected="false">
+                                        <div>
+                                            <i class='bx bx-rupee'></i>
+                                            Profit
+                                        </div>
+                                    </button>
+                                </li>
+                                <!-- <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-income-tab" data-bs-toggle="pill" data-bs-target="#pills-income" type="button" role="tab" aria-controls="pills-income" aria-selected="false">
+                                        <div>
+                                            <i class='bx bx-pie-chart-alt-2'></i>
+                                            Income
+                                           </div>
+                                    </button>
+                                 </li> -->
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                    aria-labelledby="pills-home-tab"><canvas id="myChart"></canvas></div>
+                                <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                                    aria-labelledby="pills-profile-tab"><canvas id="myChartSale"></canvas></div>
+                                <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                                    aria-labelledby="pills-contact-tab"><canvas id="myChartProfit"></canvas></div>
+                                <div class="tab-pane fade" id="pills-income" role="tabpanel"
+                                    aria-labelledby="pills-income-tab">This is some placeholder content the Home
+                                    tab's associated content. Clicking another tab will toggle the visibility of
+                                    this one for the next. The tab JavaScript swaps classes to control the content
+                                    visibility and styling. You can use it with tabs, pills, and any other
+                                    .nav-powered navigation.</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-12 mb-5">
+                <div class="dashboard-container-inside timeline">
+                    <div
+                        class="dashboard-container-inside-header d-flex justify-content-between align-items-center mb-4 ">
+                        <h4>Pending Projects</h4>
+                        <div class="view_all">
+                            <select id="project_status" name="project_status" class="dashboard-button-black me-lg-3 me-0">
+                                <option value="Weekly">Show by week</option>
+                                <option value="monthly">Show by month</option>
+                            </select>
+                            <a href="pending_project_status" class="me-lg-2 me-0">View All</a>
+                        </div>
+                    </div>
+                    <div class="dashboard-container-inside-body innerTable pending_scroll_table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Project Name</th>
+                                    <th scope="col">Deadline</th>
+                                    <th scope="col">Client Name</th>
+                                    <th scope="col">Invite Type</th>
+                                    <th scope="col">Allocated</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pending in pending_order %}
+                                <tr>
+                                    <td data-label="Project Name"><a href="project_view_status.html">{{pending.product_name}}</a></td>
+                                    <td data-label="Deadline">{{ pending.order_date|date:"D, M d, y " }}</td>
+                                    <td data-label="Client Name"><a href="project_view_status.html">{{pending.order_number}}</a>
+                                    </td>
+                                    <td data-label="Invite Type">Video</td>
+                                    <td data-label="Name"><img src="{{ pending.user.userprofile.image.url }}">Mark</td>
+                                    <td data-label="Allocated"><span class="badge bg-warning">{{pending.status}}</span></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-5">
+                <div class="dashboard-container-inside timeline ">
+                    <div
+                        class="dashboard-container-inside-header d-flex justify-content-between align-items-center mb-3">
+                        <h4>Activity Timeline</h4>
+                        <div class="dashboard-header-right d-flex align-items-center ">
+                            <!-- <div class="button-container">
+                                <button>Verified</button>
+                                <button>Unverified</button>
+                            </div> -->
+                            <div class="view_all">
+                                <select id="timeline_status" name="timeline_status" class="dashboard-button-black me-lg-3 me-0">
+                                    <option value="Weekly">Show by week</option>
+                                    <option value="monthly">Show by month</option>
+                                </select>
+                                <a href="activity_timeline_status.html" class="me-lg-2 me-0">View All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-container-inside-body innerTable scroll_table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Project Name</th>
+                                    <th scope="col">Client Name</th>
+                                    <th scope="col">Deadline</th>
+                                    <th scope="col">Progress</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Name"><img src="assets/image/avatar-13.png">Mark</td>
+                                    <td data-label="Project Name">Editor's inline</td>
+                                    <td data-label="Client Name">Jone Dow</td>
+                                    <td data-label="Deadline">28/11/2022</td>
+                                    <td data-label="Progress">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped bg-success"
+                                                role="progressbar" style="width: 25%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">25%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Name"><img src="assets/image/avatar-13.png">Mark</td>
+                                    <td data-label="Project Name">Editor's inline</td>
+                                    <td data-label="Client Name">Jone Dow</td>
+                                    <td data-label="Deadline">28/11/2022</td>
+                                    <td data-label="Progress">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped bg-warning"
+                                                role="progressbar" style="width: 50%" aria-valuenow="50"
+                                                aria-valuemin="0" aria-valuemax="100">50%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td data-label="Name"><img src="assets/image/avatar-13.png">Mark</td>
+                                    <td data-label="Project Name">Editor's inline</td>
+                                    <td data-label="Client Name">Jone Dow</td>
+                                    <td data-label="Deadline">28/11/2022</td>
+                                    <td data-label="Progress">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped bg-denger"
+                                                role="progressbar" style="width: 80%" aria-valuenow="80"
+                                                aria-valuemin="0" aria-valuemax="100">80%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Name"><img src="assets/image/avatar-13.png">Mark</td>
+                                    <td data-label="Project Name">Editor's inline</td>
+                                    <td data-label="Client Name">Jone Dow</td>
+                                    <td data-label="Deadline">28/11/2022</td>
+                                    <td data-label="Progress">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped bg-denger"
+                                                role="progressbar" style="width: 100%" aria-valuenow="100"
+                                                aria-valuemin="0" aria-valuemax="100">100%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Name"><img src="assets/image/avatar-13.png">Mark</td>
+                                    <td data-label="Project Name">Editor's inline</td>
+                                    <td data-label="Client Name">Jone Dow</td>
+                                    <td data-label="Deadline">28/11/2022</td>
+                                    <td data-label="Progress">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped bg-denger"
+                                                role="progressbar" style="width: 100%" aria-valuenow="100"
+                                                aria-valuemin="0" aria-valuemax="100">100%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12 mb-5">
+                <div class="dashboard-container-inside timeline">
+                    <div
+                        class="dashboard-container-inside-header d-flex justify-content-between align-items-center mb-3">
+                        <h4>Transaction Details</h4>
+                        <div class="view_all">
+                            <select name="class" class="dashboard-button-black me-lg-3 me-0">
+                                <option value="Weekly">Show by week</option>
+                                <option value="monthly">Show by month</option>
+                            </select>
+                            <a href="transaction_detail_status.html" class="me-lg-2 me-0">View All</a>
+                        </div>
+                    </div>
+                    <div class="dashboard-container-inside-body innerTable scroll_table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Payment Type</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Client Name</th>
+                                    <th scope="col">Project Name</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Payment Type"><img src="assets/image/card1.jpeg"
+                                            class="transaction_img"></td>
+                                    <td data-label="Date">28/11/2022</td>
+                                    <td data-label="Client Name"><a href="project_view_status.html">Jone Dow</a>
+                                    </td>
+                                    <td data-label="Project Name"><a href="project_view_status.html">Editor's
+                                            inline</a></td>
+                                    <td data-label="Status"><span class="badge bg-success">Successfull</span></td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Payment Type"><img src="assets/image/card1.jpeg"
+                                            class="transaction_img"></td>
+                                    <td data-label="Date">28/11/2022</td>
+                                    <td data-label="Client Name"><a href="project_view_status.html">Jone Dow</a>
+                                    </td>
+                                    <td data-label="Project Name"><a href="project_view_status.html">Editor's
+                                            inline</a></td>
+                                    <td data-label="Status"><span class="badge bg-success">Successfull</span></td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Payment Type"><img src="assets/image/card1.jpeg"
+                                            class="transaction_img"></td>
+                                    <td data-label="Date">28/11/2022</td>
+                                    <td data-label="Client Name"><a href="project_view_status.html">Jone Dow</a>
+                                    </td>
+                                    <td data-label="Project Name"><a href="project_view_status.html">Editor's
+                                            inline</a></td>
+                                    <td data-label="Status"><span class="badge bg-success">Successfull</span></td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Payment Type"><img src="assets/image/card1.jpeg"
+                                            class="transaction_img"></td>
+                                    <td data-label="Date">28/11/2022</td>
+                                    <td data-label="Client Name"><a href="project_view_status.html">Jone Dow</a>
+                                    </td>
+                                    <td data-label="Project Name"><a href="project_view_status.html">Editor's
+                                            inline</a></td>
+                                    <td data-label="Status"><span class="badge bg-success">Successfull</span></td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Payment Type"><img src="assets/image/card2.jpeg"
+                                            class="transaction_img"></td>
+                                    <td data-label="Date">28/11/2022</td>
+                                    <td data-label="Client Name"><a href="project_view_status.html">Jone Dow</a>
+                                    </td>
+                                    <td data-label="Project Name"><a href="project_view_status.html">Editor's
+                                            inline</a></td>
+                                    <td data-label="Status"><span class="badge bg-danger">Reject</span></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- notification-section -->
+<div class="offcanvas offcanvas-end notifi_canvas" tabindex="-1" id="notification"
+aria-labelledby="notificationLabel">
+<div class="offcanvas-header">
+   <h5 id="notificationLabel">Offcanvas right</h5>
+
+</div>
+<div class="offcanvas-body notifi_body">
+   <div class="mt-3 mb-4 d-flex justify-content-between">
+       <h3 class="">Notification</h3 class="mt-3">
+       <button type="button" class="btn-close text-reset notifi_close" data-bs-dismiss="offcanvas"
+        aria-label="Close">X</button>
+   </div>
+
+   <div class="row m-0 notification_bodt ">
+       <div class="notification-ui_dd-content px-0">
+           <div class="notification-list  ">
+               <div class="notification-list_content">
+                   <div class="notification-list_img">
+                       <img src="assets/image/bell.png">
+                   </div>
+                   <div class="notification-list_detail">
+                       <span>
+                           <small>
+                               <i class="bx bx-user nav_icon pe-2"></i>Jose
+                           </small>
+                           <small>
+                               <i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                       </span>
+                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.
+
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="notification-list  ">
+               <div class="notification-list_content">
+                   <div class="notification-list_img">
+                       <img src="assets/image/bell.png">
+                   </div>
+                   <div class="notification-list_detail">
+                       <span>
+                           <small>
+                               <i class="bx bx-user nav_icon pe-2"></i>Jose
+                           </small>
+                           <small>
+                               <i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                       </span>
+                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.
+
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="notification-list  ">
+               <div class="notification-list_content">
+                   <div class="notification-list_img">
+                       <img src="assets/image/bell.png">
+                   </div>
+                   <div class="notification-list_detail">
+                       <span>
+                           <small>
+                               <i class="bx bx-user nav_icon pe-2"></i>Jose
+                           </small>
+                           <small>
+                               <i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                       </span>
+                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.
+
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="notification-list  ">
+               <div class="notification-list_content">
+                   <div class="notification-list_img">
+                       <img src="assets/image/bell.png">
+                   </div>
+                   <div class="notification-list_detail">
+                       <span>
+                           <small>
+                               <i class="bx bx-user nav_icon pe-2"></i>Jose
+                           </small>
+                           <small>
+                               <i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                       </span>
+                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.
+
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="notification-list notification-list--unread">
+               <div class="notification-list_content">
+                   <div class="notification-list_img">
+                       <img src="assets/image/bell.png">
+                   </div>
+                   <div class="notification-list_detail">
+                       <span>
+                           <small>
+                               <i class="bx bx-user nav_icon pe-2"></i>Jose
+                           </small>
+                           <small>
+                               <i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                       </span>
+
+                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.
+
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="notification-list notification-list--unread">
+               <div class="notification-list_content">
+                   <div class="notification-list_img">
+                       <img src="assets/image/bell.png">
+                   </div>
+                   <div class="notification-list_detail">
+                       <span>
+                           <small>
+                               <i class="bx bx-user nav_icon pe-2"></i>Jose
+                           </small>
+                           <small>
+                               <i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                       </span>
+
+                       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.
+
+                       </p>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+{% endblock %}

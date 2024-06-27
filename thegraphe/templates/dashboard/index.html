@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedskey | Admin Panel</title>
+
+    <!--css-->
+    <link
+      rel="stylesheet"
+      href="{% static './dash/assets/css/bootstrap.css' %}"
+    />
+    <link rel="stylesheet" href="{% static './dash/assets/css/main.css' %}" />
+
+    <!--icon-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+  </head>
+  <body class="m-0 p-0">
+    <main>
+      <section class="login_div">
+        <div class="container-fluid">
+          <div
+            class="login-box d-flex justify-content-center align-items-center"
+          >
+            {% if error_message %}
+            <p style="color: color">{{ error_message }}</p>
+            {% endif %}
+            <form method="post" action="{% url 'dashboard' %}" class="login-form p-3 p-lg-5">
+              {% csrf_token %}
+              <div class="d-block text-center mb-4">
+                <img src="{% static './dash/assets/image/logo.png' %}" />
+                <h5>Graphē Admin</h5>
+              </div>
+              <img
+                src="{% static './dash/assets/image/Logo.svg' %}"
+                alt=""
+                class="mx-auto d-block img-fluid"
+              />
+              <div class="input-group">
+                <i class="bx bx-envelope"></i>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  placeholder="username"
+                  class="form-control"
+                />
+              </div>
+              <div class="input-group mt-3">
+                <i class="bx bx-lock-alt"></i>
+                <input
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  class="form-control"
+                />
+              </div>
+              <div class="d-flex justify-content-end forgot_password">
+                <a href="forgot-password">Forgot Your Password?</a>
+              </div>
+              <button type="submit" class="d-block login-button">Login</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!--JS-->
+    <script src="{% static './dash/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static './dash/assets/js/popper.js' %}"></script>
+    <script src="{% static './dash/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static './dash/assets/js/sortable.min.js' %}"></script>
+    <script src="{% static './dash/assets/js/main.js' %}"></script>
+  </body>
+</html>

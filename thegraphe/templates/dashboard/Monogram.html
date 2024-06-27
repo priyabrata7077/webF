@@ -1,0 +1,91 @@
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="bg-light">
+    <div class="container-fluid dashboard-heading">
+        <h4 class="mb-4"><a href="{% url 'monogram' %}" class="text-black"><i class="bx bx-arrow-back"></i></a> Add Service</h4>
+        <div class="manage-user-container p-5">
+            <form method="post" enctype="multipart/form-data" action="">
+                {% csrf_token %}
+                
+                <label for="logo">Logo:</label>
+                <input type="file" name="logo" id="logo" accept="image/*" required>
+                
+                <button type="submit" class="add-form">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="panelContainer collection_content">
+    <ul class="collection_card collection_list">
+        {% for monograms in monogram %}
+            <li>
+                <span><img src="/{{ monograms.logo }}" id="logo"></span>
+                <button class="edtBtn delete-button" data-id="{{ monograms.id }}"><i class="bx bxs-trash"></i></button>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="row m-0 mt-4 mt-lg-5">
+    <div class="dashboard-container-inside-body innerTable px-0">
+        <div class="card manage-user-container mb-4 p-3">
+            <div class="comment-section d-sm-flex d-block"> 
+                <div id="deleteModal" class="modal">
+                    <div class="modal-content">
+                        <p>Are you sure you want to delete this item?</p>
+                        <button style="color: white" data-id="{{ monogram.id }}" id="confirmDelete">Yes</button>
+                        <button id="cancelDelete">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>        
+<style>
+    #deleteModal {
+        margin-top: 50px;
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        z-index: 999;
+    }
+</style>
+<script>
+const deleteButtons = document.querySelectorAll('.delete-button');
+const deleteModal = document.getElementById('deleteModal');
+const confirmDelete = document.getElementById('confirmDelete');
+const cancelDelete = document.getElementById('cancelDelete');
+
+let monogramId;
+
+deleteButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        monogramId = this.getAttribute('data-id');
+        if (monogramId !== null && monogramId !== undefined) {
+            console.log('Monogram ID:', monogramId);
+            deleteModal.style.display = 'block';
+        } else {
+            console.error('Error: data-id attribute not found or has an invalid value.');
+        }
+    });
+});
+
+confirmDelete.addEventListener('click', function () {
+    if (monogramId !== null && monogramId !== undefined) {
+        window.location.href = `delete_monogram/${monogramId}`;
+    } else {
+        console.error('Error: Monogram ID not available.');
+    }
+});
+
+cancelDelete.addEventListener('click', function () {
+    deleteModal.style.display = 'none';
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,208 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid dashboard-heading">
+    <div class="d-md-flex d-sm-block justify-content-between align-items-center">
+        <h4 class="mb-5">
+            <a href="/dashboard/project_status" class="text-black">
+                <i class="bx bx-arrow-back"></i>
+            </a>
+            Edit Project Name 
+            <span class="badge bg-success ms-3 approved-badge">Approved</span>
+        </h4>
+        <div class="col-lg-2 mb-5 p-0 d-flex justify-content-md-end justify-content-start align-items-center user_icon">
+            <a href="#" class="approved add-form me-3" data-toggle="tooltip" data-placement="top" title="Approve" onclick="approveOrder({{ order.id }})">
+                <i class='bx bx-user-check nav_icon'></i>
+            </a>
+            <a href="#" class="reject add-form" data-toggle="tooltip" data-placement="top" title="Reject" onclick="rejectOrder({{ order.id }})">
+                <i class='bx bx-user-x nav_icon'></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Details -->
+    <div class="row first-row align-items-start">
+        <form action="">
+            <!-- Approved Details -->
+            <div class="card manage-user-container mb-4 p-3" id="approved_show">
+                <div class="row primary-col m-0 approved_row">
+                    <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                        <h5 class="client_heading mb-2">Approved Details</h5>
+                        <button type="button" class="btn mb-2 notifi_close" id="approve_hide">X</button>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 order-2 order-md-1">
+                        <div class="form-control form-select form_style multiselect" id="countries" multiple="multiple" data-target="multi-0">
+                            <div class="title noselect">
+                                <span class="text">Select</span>
+                                <span class="close-icon">&times;</span>
+                                <span class="expand-icon">&plus;</span>
+                            </div>
+                            <div class="select-section" id="selectedUser" name="selectedUser">
+                                {% for user in users %}
+                                <option value="{{ user.username }}" data-phone="{{ user.userprofile.phone_number }}">{{ user.username }}-{{ user.email }}</option>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-12 order-1 order-md-2 mb-md-0 mb-3">
+                        <button type="button" class="btn btn-primary" onclick="sendMail()">Send Email</button>
+                        <a href="#" class="add-button ms-2" onclick="shareWhatsApp('{{ users.user.userprofile.phone_number }}', '{{ orders.order_number }}', '{{ orders.product_name }}')">
+                            <i class="bx bx-share-alt me-2"></i>Share
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reject Details -->
+            <div class="card manage-user-container mb-4 p-3" id="reject_show">
+                <div class="row primary-col m-0 approved_row">
+                    <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                        <h5 class="client_heading mb-2">Reject Details</h5>
+                        <button type="button" class="btn mb-2 notifi_close" id="reject_hide">X</button>
+                    </div>
+                    <div class="form-group mb-3 col-lg-4 col-md-6 col-12 order-2 order-md-1">
+                        <label for="reason">Reason</label>
+                        <textarea class="form-control form_style detail_address" id="reject_reason"></textarea>
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-12 order-1 order-md-2 mb-md-0 mb-3">
+                        <button class="add-button" type="button" onclick="sendMail('{{ user.email }}')">
+                            <i class="bx bx-mail-send me-2"></i>Send Mail
+                        </button>
+                        <button class="add-button ms-2" onclick="shareWhatsApp('{{ users.user.userprofile.phone_number }}', '{{ orders.order_number }}', '{{ orders.product_name }}')">
+                            <i class="bx bx-share-alt me-2"></i>Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Form -->
+            <form class="card manage-user-container mb-4 p-3" action="POST">
+                {% csrf_token %}
+                <div class="row primary-col m-0">
+                    <div class="col-lg-12">
+                        <h5 class="client_heading">Details</h5>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <div class="form-title d-flex justify-content-between">
+                                <label for="phone_number">Phone</label>
+                            </div>
+                            <input type="text" id="phone_number" name="phone_number" class="form-control form_style" value="{{ orders.user.userprofile.phone_number }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <label for="billing">Billing name</label>
+                            <input type="text" class="form-control form_style" value="{{ orders.product_name }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <div class="form-title d-flex justify-content-between">
+                                <label for="date">Deadline date</label>
+                            </div>
+                            <input type="text" id="date" name="date" class="form-control form_style" value="{{ order.date }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <div class="form-title d-flex justify-content-between">
+                                <label for="email">Email</label>
+                            </div>
+                            <input type="email" class="form-control form_style" value="{{ orders.user.email }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-lg-end justify-content-start mt-5">
+                    <button class="add-form me-2" type="button">Cancel</button>
+                    <button type="submit" class="add-form">Save</button>
+                </div>
+            </form>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function getCsrfToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+ // JavaScript function to approve an order
+function approveOrder(orderId) {
+    const url = `/dashboard/edit_project_status/${orderId}/approve/`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken()
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Order approved successfully');
+            return response.json(); // Handle JSON response if needed
+        } else {
+            console.error('Failed to approve order');
+            throw new Error('Failed to approve order');
+        }
+    })
+    .catch(error => console.error('Error approving order:', error));
+}
+function rejectOrder(orderId) {
+    const url = `/dashboard/edit_project_status/${orderId}/reject/`;
+    const reason = document.getElementById('reject_reason').value;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken(),  // Ensure getCsrfToken() function is defined correctly
+        },
+        body: JSON.stringify({ reason: reason }),  // Send reason as JSON in the request body
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to reject order');
+        }
+    })
+    .then(data => {
+        alert('Order rejected successfully');  // Handle success message
+        // Optionally, you can perform additional actions upon successful rejection
+    })
+    .catch(error => {
+        console.error('Failed to reject order:', error);
+        alert('Failed to reject order');  // Handle error message
+    });
+}
+function sendMail(email) {
+    $.ajax({
+        url: '/send_mail/',  // URL to your Django view for sending mail
+        type: 'POST',
+        data: {
+            'email': email,
+            'csrfmiddlewaretoken': getCsrfToken()
+        },
+        success: function(response) {
+            alert('Email sent successfully!');
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            console.error('Error sending email:', errorThrown);
+            alert('Error sending email.');
+        }
+    });
+}
+
+// Function to retrieve CSRF token
+function getCsrfToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}
+    function shareWhatsApp(phoneNumber, orderNumber, productName) {
+        var whatsappUrl = 'https://wa.me/' + phoneNumber + '?text=Order%20ID:' + orderNumber + '%20Product%20Name:' + productName;
+        window.open(whatsappUrl, '_blank');
+    }
+</script>
+
+{% endblock %}

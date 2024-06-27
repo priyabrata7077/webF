@@ -1,0 +1,289 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}feedback{% endblock %}
+{%  load static %}
+{%  block content %}
+
+<div class="bg-light">
+    <div class="container-fluid dashboard-heading">
+        <div class="row m-0 mb-4">
+            <div class="col-lg-6 p-0">
+                <h5 class="text-black mt-4">Feedback List</h5>
+            </div>
+            <div class="col-lg-6 p-0 d-flex justify-content-end align-content-center align-items-center l_btn">
+                <select id="sources" class="custom-select sources form-control mt-3 mt-md-4 mt-lg-4" placeholder="Please Select">
+                    <option value="1" selected>Today</option>
+                    <option>Yesterday</option>
+                    <option>Last 7 Days</option>
+                </select>
+                <div class="form-group ms-3  mt-3 mt-md-4 mt-lg-4">
+                    <!-- <label>Date </label> -->
+                    <div class="input-div position-relative flatpickr ">
+                        <input class="form-control form_style date1" placeholder="DD-MM-YYYY" data-input type='text'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 mt-4 mt-lg-5">
+            <div class="dashboard-container-inside-body innerTable px-0">
+                <div class="card manage-user-container mb-4 p-3">
+                    <div class="comment-section d-sm-flex d-block">
+                        <img src="assets/image/file-blank-image.png" class="review-img">
+                        <div class="comment_description ">
+                            <div class="cmt_desc set mt-md-0 mt-3">
+                                <span>
+                                    <small><i class="bx bx-user nav_icon pe-2"></i>Jose </small>
+                                    <small><i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                                    <small><i class="bx bx-comment nav_icon pe-2"></i>3</small>
+                                </span>
+                                <div class="d-flex mt-3">
+                                    <ul class="ratingW me-3">
+                                        <li class="on"><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li class="on"><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li class="on"><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                    </ul>
+                                    <p class="counterW">score: <span class="scoreNow">3</span> out of
+                                        <span>5</span>
+                                    </p>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius saepe, sunt quo
+                                    molestiae rem quas eveniet quasi repellat officiis reprehenderit.
+                                </p>
+                                <a href="#" class="view_cmt">View More</a>
+                                <div class="content">
+                                    <div class="content_show">
+                                        <span>
+                                            <small><i class="bx bx-user nav_icon pe-2"></i>Jose </small>
+                                            <small><i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                                        </span>
+                                        <div class="cmt_desc">
+                                            <div class="cmt_desc">
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+                                                    saepe, sunt
+                                                    quo
+                                                    molestiae rem quas eveniet quasi repellat officiis
+                                                    reprehenderit. Lorem
+                                                    ipsum dolor
+                                                    sit amet consectetur adipisicing elit. Qui tempore, dolorum
+                                                    nihil eius
+                                                    esse vitae
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content_show">
+                                        <span>
+                                            <small><i class="bx bx-user nav_icon pe-2"></i>Jose </small>
+                                            <small><i class="bx bx-calendar nav_icon pe-2"></i> 11/06/2022</small>
+                                        </span>
+                                        <div class="cmt_desc">
+                                            <div class="cmt_desc">
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+                                                    saepe, sunt
+                                                    quo
+                                                    molestiae rem quas eveniet quasi repellat officiis
+                                                    reprehenderit. Lorem
+                                                    ipsum dolor
+                                                    sit amet consectetur adipisicing elit. Qui tempore, dolorum
+                                                    nihil eius
+                                                    esse vitae
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card manage-user-container mb-4 p-3">
+                    <div class="comment-section d-sm-flex d-block">
+                        <img src="assets/image/file-blank-image.png" class="review-img">
+                        <div class="comment_description ">
+                            <div class="cmt_desc set mt-md-0 mt-3">
+                                <span>
+                                    <small><i class="bx bx-user nav_icon pe-2"></i>Jose </small>
+                                    <small><i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                                    <small><i class="bx bx-comment nav_icon pe-2"></i>3</small>
+                                </span>
+                                <div class="d-flex mt-3">
+                                    <ul class="ratingW me-3">
+                                        <li class="on"><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li class="on"><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li class="on"><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                    </ul>
+                                    <p class="counterW">score: <span class="scoreNow">3</span> out of
+                                        <span>5</span>
+                                    </p>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius saepe, sunt quo
+                                    molestiae rem quas eveniet quasi repellat officiis reprehenderit.
+                                </p>
+                                <a href="#" class="view_cmt">View More</a>
+                                <div class="content">
+                                    <div class="content_show">
+                                        <span>
+                                            <small><i class="bx bx-user nav_icon pe-2"></i>Jose </small>
+                                            <small><i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                                        </span>
+                                        <div class="cmt_desc">
+                                            <div class="cmt_desc">
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+                                                    saepe, sunt
+                                                    quo
+                                                    molestiae rem quas eveniet quasi repellat officiis
+                                                    reprehenderit. Lorem
+                                                    ipsum dolor
+                                                    sit amet consectetur adipisicing elit. Qui tempore, dolorum
+                                                    nihil eius
+                                                    esse vitae
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content_show">
+                                        <span>
+                                            <small><i class="bx bx-user nav_icon pe-2"></i>Jose </small>
+                                            <small><i class="bx bx-calendar nav_icon pe-2"></i> 11/06/2022</small>
+                                        </span>
+                                        <div class="cmt_desc">
+                                            <div class="cmt_desc">
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+                                                    saepe, sunt
+                                                    quo
+                                                    molestiae rem quas eveniet quasi repellat officiis
+                                                    reprehenderit. Lorem
+                                                    ipsum dolor
+                                                    sit amet consectetur adipisicing elit. Qui tempore, dolorum
+                                                    nihil eius
+                                                    esse vitae
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card manage-user-container mb-4 p-3">
+                    <div class="comment-section d-sm-flex d-block">
+                        <img src="assets/image/file-blank-image.png" class="review-img">
+                        <div class="comment_description ">
+                            <div class="cmt_desc set mt-md-0 mt-3">
+                                <span>
+                                    <small><i class="bx bx-user nav_icon pe-2"></i>Jose </small>
+                                    <small><i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                                    <small><i class="bx bx-comment nav_icon pe-2"></i>3</small>
+                                </span>
+                                <div class="d-flex mt-3">
+                                    <ul class="ratingW me-3">
+                                        <li class="on"><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li class="on"><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li class="on"><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                        <li><a href="javascript:void(0);">
+                                                <div class="star"></div>
+                                            </a></li>
+                                    </ul>
+                                    <p class="counterW">score: <span class="scoreNow">3</span> out of
+                                        <span>5</span>
+                                    </p>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius saepe, sunt quo
+                                    molestiae rem quas eveniet quasi repellat officiis reprehenderit.
+                                </p>
+                                <a href="#" class="view_cmt">View More</a>
+                                <div class="content">
+                                    <div class="content_show">
+                                        <span>
+                                            <small><i class="bx bx-user nav_icon pe-2"></i>Jose </small>
+                                            <small><i class="bx bx-calendar nav_icon pe-2"></i>11th Aug 22</small>
+                                        </span>
+                                        <div class="cmt_desc">
+                                            <div class="cmt_desc">
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+                                                    saepe, sunt
+                                                    quo
+                                                    molestiae rem quas eveniet quasi repellat officiis
+                                                    reprehenderit. Lorem
+                                                    ipsum dolor
+                                                    sit amet consectetur adipisicing elit. Qui tempore, dolorum
+                                                    nihil eius
+                                                    esse vitae
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content_show">
+                                        <span>
+                                            <small><i class="bx bx-user nav_icon pe-2"></i>Jose </small>
+                                            <small><i class="bx bx-calendar nav_icon pe-2"></i> 11/06/2022</small>
+                                        </span>
+                                        <div class="cmt_desc">
+                                            <div class="cmt_desc">
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+                                                    saepe, sunt
+                                                    quo
+                                                    molestiae rem quas eveniet quasi repellat officiis
+                                                    reprehenderit. Lorem
+                                                    ipsum dolor
+                                                    sit amet consectetur adipisicing elit. Qui tempore, dolorum
+                                                    nihil eius
+                                                    esse vitae
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

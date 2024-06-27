@@ -1,0 +1,48 @@
+from .import views 
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('fetch_related_main_categories/<int:subcategory_id>/', views.fetch_related_main_categories, name='fetch_related_main_categories'),
+    #end event
+    path('add_event/', views.add_event, name='add_event'),
+    path('get_events/', views.get_events, name='get_events'),
+    #end event
+    path('', views.dashboard, name='dashboard'),
+    path('logout', views.logout_view, name='logout'),
+    path('accounts/login/', views.log, name='log'),
+    path('forgot-password/', views.forgot_password, name='forgot_password'),
+    path('reset-password/<str:token>/', views.reset_password, name='reset_password'),
+    path('export_to_excel/', views.Export_to_excel, name='export'),
+    path('roles', views.Roles, name='roles'),
+    path('edit_role', views.edit_Role, name='edit_role'),
+    path('home', views.home, name='panel'),
+    path('project_status', views.Project, name='Project'),
+    path('services', views.Services, name='Services'),
+    path('delete_services/<slug:slug>/', views.delete_services, name='delete_services'),
+    path('edit_services/<slug:slug>/', views.Edit_Services, name='edit_services'),
+    path('add_services', views.Add_Services, name='add_services'),
+    path('collection', views.Collection, name='Collection'),
+    path('edit_collection/<slug:slug>/', views.Edit_Collection, name='edit_collections'),
+    path('delete_collection/<slug:slug>/', views.delete_collection, name='delete_collection'),
+    path('add_collection', views.Add_Collection, name='add_collection'),
+    path('edit_services/<slug:slug>/', views.Edit_Services, name='edit_services'),
+    path('collection', views.Collection, name='Collection'),
+    path('calendar', views.Calender, name='calender'),
+    path('invoice', views.Invoice, name='invoice'),
+    path('feedback', views.Feedback, name='Feedback'),
+    path('project_view_status/<int:id>/', views.project_view_status, name='project_view_status'),
+    path('edit_project_status/<int:id>/', views.edit_project_status, name='edit_project_status'),
+    path('rsvp_order', views.rsvp_orders, name='rsvp_order'),
+    path('rsvplist', views.rsvps, name='rsvps'),
+    path('edit_rsvplist/<int:id>/', views.edit_rsvps, name='edit_rsvp'),
+    #path('/google/auth/', views.authenticate_google, name='authenticate_google'),
+    path('monogram', views.Monogram, name='monogram'),
+    path('delete_monogram/<int:id>', views.delete_monogram, name='delete_monogram'),
+    path('export/', views.Export_to_excel, name='export_to_excel'),
+    path('toggle-status/<int:product_id>/', views.toggle_product_status, name='toggle_product_status'),
+    path('filter-orders/', views.filter_orders, name='filter_orders'),
+    path('edit_project_status/<int:orderId>/approve/', views.approve_order, name='approve_project_status'),
+    path('edit_project_status/<int:order_id>/reject/', views.reject_order, name='reject_project_status'),
+    path('send_mail/', views.send_mail_view, name='send_mail'),
+]

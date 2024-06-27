@@ -1,0 +1,41 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}add_collection{% endblock %}
+{%  load static %}
+{%  block content %}
+<div class="bg-light">
+    <div class="container-fluid dashboard-heading">
+        <h4 class="mb-4"><a href="collection" class="text-black"><i class="bx bx-arrow-back"></i></a> Add Collection</h4>
+        <div class="manage-user-container p-5">
+            <form method="post" action="{% url 'add_collection' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+            
+                <div class="form-group mb-3">
+                    <label for="{{ form.name.name }}">Category Name:</label>
+                    <input type="text" id="{{ form.name.name }}" name="{{ form.name.name }}" class="form-control form_style" placeholder="{{ form.name.label }}">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="{{ form.slug.id_for_label }}">Slug:</label>
+                    <input type="text" id="{{ form.slug.id_for_label }}" name="{{ form.slug.name }}" class="form-control form_style" placeholder="{{ form.slug.label }}">
+                </div>
+                
+                {% comment %} <div class="form-group mb-3">
+                    <label for="{{ form.banner.id_for_label }}">Image:</label>
+                    {{ form.banner }}
+                </div> {% endcomment %}
+                <div class="form-group mb-3">
+                    <label for="{{ form.category.id_for_label }}">Main Category:</label>
+                    {{ form.category }}
+                </div>
+            
+                <div class="d-flex justify-content-lg-end justify-content-start mt-5">
+                    <button class="add-form me-2">Cancel</button>
+                    {% if not main_category_exists %}
+                    <button class="add-form" type="submit">Save Product</button>
+                {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

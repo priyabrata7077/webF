@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% block title %}signup{% endblock %} 
+{% load static %} {% load socialaccount %}  {% block content %}
+
+<section class="inner_pagebody login_body">
+  <div class="container-fluid">
+    <div
+      class="row m-0 justify-content-lg-end justify-content-center align-items-end"
+    >
+      <div class="col-12 col-lg-4 col-md-7">
+        <div class="login_div">
+          <h3>Create account</h3>
+          <form  method="post" class="loginform">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="username" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="username" name="username" autocomplete="username" />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                autocomplete="email"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="phone_number" class="form-label">Phone Number</label>
+              <input
+                type="number"
+                class="form-control"
+                id="phone_number"
+                name="phone_number"
+                autocomplete="phone_number"
+                aria-describedby="phone_numberHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password1" name="password1" />
+            </div>
+             <div class="mb-3">
+                <label for="password2" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="password1" name="password2">
+              </div>
+              <div class="mb-3 form-check ps-3">
+                <label class="form-check-label" for="exampleCheck1">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  I've read and accept all the <a href="javascript:void(0);">Terms and Conditions</a>
+                </label>
+              </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <div class="or_img">
+            
+            <!-- <ul class="login_social">
+              <li>
+                <a href="{% provider_login_url 'google'%}"
+                  ><img src="{% static 'assets/image/g.svg' %}"
+                /></a>
+              </li>
+              <li>
+                <a href="javascript:void(0);"
+                  ><img src="{% static 'assets/image/fb.svg' %}"
+                /></a>
+              </li>
+              <li>
+                <a href="javascript:void(0);"
+                  ><img src="{% static 'assets/image/apple.svg' %}"
+                /></a>
+              </li>
+            </ul> -->
+            <p>Existing user? <a href="{% url 'profile' %}">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

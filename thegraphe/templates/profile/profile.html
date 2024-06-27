@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% block title %}profile{% endblock %}
+{%  load static %}
+{%  block content %}
+<main>
+  <article>
+    <section class="profile">
+      <div class="container-fluid">
+        <div class="username_img">
+          <img src="{% if user.is_authenticated %}
+          {{ user.userprofile.image.url }}
+          {% else %}
+          Please log in.
+          {% endif %}">
+          <h4>
+            <span>Hello,</span>
+           {{ request.user.username }}
+          </h4>
+        </div>
+        <div class="row m-0 mt-4 mt-lg-5">
+          <div class="maxwidth">
+            <div class="ux-vertical-tabs">
+              <div class="tabs sticky-lg-top">
+                <button class="lf_menu" data-tab="tab1"><img src="{% static 'assets/image/myorder_icon.svg' %}"> My Orders<span></span></button>
+                <button class="lf_menu active" data-tab="tab2"><img src="{% static 'assets/image/account_icon.svg' %}"> Account Settings<span></span></button>
+                <button class="lf_menu" data-tab="tab3"><img src="{% static 'assets/image/payment.svg' %}"> Payments<span></span></button>
+              </div>
+              <div class="maincontent">
+                <div data-tab="tab1" class="tabcontent">
+                  <div class="ux-text">
+                    <h2>Order List</h2>
+                    
+                    <div class="profiletable table-responsive-lg table-responsive-md">
+                      <table class="table table-borderless">
+                        <thead>
+                          <tr>
+                            <th class="width-80"></th>
+                            <th>Order Id</th>
+                            <th>Price</th>
+                            <th>Date</th>
+                            <th>Product Name</th>
+                            <th>Status</th>
+                            <th>View</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <form method="POST">
+                            {% csrf_token %}
+                          {% for order in orders|dictsortreversed:"order_date" %}
+                          <tr id="{{id}}">
+                            <td>
+                              <img src ="/{{ order.image }}" name="image" alt="" name="image" value="{{ order.image }}" class="product_img">
+                            </td>
+                            <td>
+                              <span class="d-block">#{{ order.order_number }}</span>
+                            </td>
+                            <td data-label="Price"><small><b>₹</b></small>{{ order.total_price }}</td>
+                            <td data-label="Date">{{ order.order_date }}</td>
+                            <td data-label="product_name">{{ order.product_name }}</td>
+                            <td data-label="Shipped To"><strong class="alert-warning tablebach">{% if order.status %}
+                              {{ order.status }}
+                          {% else %}
+                              Pending
+                          {% endif %}</strong></td>
+                            <td><button type="button" class="add_cartbtn view-order-btn"
+                              data-image="{{ order.image }}"
+                              data-order-number="{{ order.order_number }}"
+                              data-order-date="{{ order.order_date|date:"D, M d" }}"
+                              data-product-name="{{ order.product_name }}"
+                              data-bs-toggle="modal" data-bs-target="#track_modal">View Order</button></td>
+                          </tr>
+                          
+                          {% endfor %}
+                        </form>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!--end orderlist-->
+
+                <div data-tab="tab2" class="tabcontent active">
+                  <div class="ux-text w-100">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                      <h2>My Profile</h2>
+                      <button class="bg-transparent p-0 border-0" id="edit"><i data-feather="edit-3"></i> Edit</button>
+                    </div>
+                    <form method="post">
+                      {% csrf_token %}
+                      <div class="row m-0">
+                        <div class="col-12 col-lg-2 p-0">
+                          <div class="imageupload">
+                            <div class="form-group">
+                              <label for="fileField" class="attachment">
+                                <div class="row btn-file">
+                                  <div class="btn-file__preview"></div>
+                                  <div class="btn-file__actions">
+                                    <div class="btn-file__actions__item col-xs-12 text-center">
+                                      <div class="btn-file__actions__item--shadow">
+                                        <i data-feather="camera"></i>
+                                        <div class="visible-xs-block"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <input name="file" type="file" id="fileField" value="">
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-lg-10">
+                          <div style="line-height: 0;">
+                            <label for="username" class="form-label">Full Name</label>
+                            <input type="username" id="username"  name="username" class="form-control inputDisabled" autocomplete="username" disabled="disabled" value="{{ user.username }}">
+                          </div>
+                          <div>
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" disabled="disabled" autocomplete="email" value="{{ user.email }}" style="color: white;">
+
+                          </div>
+                          <div>
+                            <label for="Phone_number" class="form-label">Phone No.</label>
+                            <input type="text" class="form-control inputDisabled" id="Phone_number" name="Phone_number" disabled="disabled" value="{{user.userprofile.phone_number}}">
+                          </div>
+                          <div>
+                            <label for="password" class="form-label">password</label>
+                            <input type="password" name="password" id="password" class="form-control" disabled="disabled" value="1234567890">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn submit_btn inputDisabled" disabled="disabled">Update now</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                <!--end Account settings-->
+
+                <!-- <div data-tab="tab3" class="tabcontent">
+                  <div class="ux-text w-100">
+                    <h2>My Address</h2>
+                    <form class="row addaddress justify-content-between">
+                      <div class="col-12 col-lg-5">
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Address Line 1</label>
+                          <textarea type='text' class="form-control" id='address1'  placeholder="Address Line 1"></textarea>
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Address Line 2</label>
+                          <textarea type='text' class="form-control" id='address2'  placeholder="Address Line 2 "></textarea>
+                        </div>
+                        <button type="button" id='add' class="btn addprofile_btn">Add Address</button>
+                      </div>
+                      <div class="col-12 col-lg-6 border-left">
+                        <div class="plans">
+                          <label class="plan basic-plan" for="basic">
+                            <input checked type="radio" name="plan" id="basic" />
+                            <div class="plan-content">
+                              <div class="plan-details">
+                                <span>Godrej Genesis Building, 17th Floor EN-34 EN Block West Bengal Sector V Bidhannagar Kolkata 700105</span>
+                              </div>
+                            </div>
+                          </label>
+                      
+                          <label class="plan complete-plan" for="complete">
+                            <input type="radio" id="complete" name="plan" />
+                            <div class="plan-content">
+                              <div class="plan-details">
+                                <span>J92M+P72, Kolkata Station Rd, Belgachia, Kolkata, West Bengal 700004</span>
+                              </div>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn submit_btn">Update now</button>
+                      </div>
+                    </form>
+                  </div>
+                </div> -->
+                <!--end Add card-->
+                <div class="modal fade" id="track_modal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header pb-0 border-0">
+                        <h5 class="modal-title" id="{{orders.id}}">Order Tracking</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      
+                      <div class="modal-body">
+                        <div class="m_productname">
+                          <img src="{{ orders.image }}">
+                          <p>{{orders.product_name}}<span>#{{ orders.order_number }}</span></p>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 hh-grayBox ">
+                            <div class="row justify-content-between">
+                              <div class="order-tracking completed">
+                                <span class="is-complete"></span>
+                                <p>Order Placed<br><span>{{ orders.order_date|date:"D, M d" }}</span></p>
+                              </div>
+                              <div class="order-tracking completed">
+                                <span class="is-complete"></span>
+                                <p>order Assign<br><span>Tue, June 25</span></p>
+                              </div>
+                              <div class="order-tracking">
+                                <span class="is-complete"></span>
+                                <p>In Progress<br><span>Fri, June 28</span></p>
+                              </div>
+                              <div class="order-tracking">
+                                <span class="is-complete"></span>
+                                <p>Delivered<br><span>Fri, June 28</span></p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 text-center" >
+                            <a href="javascript:void(0);" class="wr_btn show_hide">Write a Review</a>
+                            <form method="post" name="productform" id="productform">
+                              <div class="m_review_dive">
+                                <li class="pt-2">Add Star <small style="color:#ff0000;">*</small></li>
+                                <div class="starDiv">
+                                  <ul class="ratingW me-3 position-relative">
+                                    <li><a href="javascript:void(0);">
+                                            <div class="star"></div>
+                                        </a></li>
+                                    <li><a href="javascript:void(0);">
+                                            <div class="star"></div>
+                                        </a></li>
+                                    <li><a href="javascript:void(0);">
+                                            <div class="star"></div>
+                                        </a></li>
+                                    <li><a href="javascript:void(0);">
+                                            <div class="star"></div>
+                                        </a></li>
+                                    <li><a href="javascript:void(0);">
+                                            <div class="star"></div>
+                                        </a></li>
+                                  </ul>
+                                  <p class="counterW"><span class="scoreNow">0</span> /
+                                      <span>5</span>
+                                  </p>
+                                </div>
+                                <div>
+                                  <label for="message">Write a Review <small style="color:#ff0000;">*</small></label>
+                                  <textarea class="form-control h-auto" rows="3" id="message" name="message" placeholder="What do you like?"></textarea>
+                                  <small id="charlimit">(length between 30 to 60)</small>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                  <input type="submit" name='submit' class="buttons" value="Submit Review">
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div data-tab="tab3" class="tabcontent">
+                  <div class="ux-text">
+                    <h2>Payment List</h2>
+                    <div class="wishlist_table">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Template</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for order in orders %}
+                          <tr>
+                            <td data-label="Id">{{order.id}}</td>
+                            <td>
+                              <space>            </space>
+                              <div class="d-flex align-items-center">
+                                <small class="def_pic"><img src="{{order.image}}"></small>
+                                <span class="itemName">{{order.product_name}}</span>
+                              </div>
+                            </td>
+                            <td data-label="Price"><b>₹</b>{{ order.total_price }}</td>
+                            <td data-label="Status"><strong class="alert-danger">{{order.status}}</strong></td>
+                            <td data-label="Action">
+                              <a href="" class="add_cartbtn">Pay Now</a>
+                              <!-- <a href="javascript:void(0);" class="delite_btn"><i data-feather="trash-2"></i></a> -->
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                        
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</main>
+  {% endblock %}

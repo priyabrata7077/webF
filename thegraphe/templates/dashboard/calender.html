@@ -1,0 +1,68 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<div class="bg-light">
+  <div class="container-fluid dashboard-heading">
+    <div class="row">
+      <div class="col-lg-6">
+        <h5 class="text-black mb-4">Set Your Weekly Wedding Schedule!</h5>
+      </div>
+      <div class="col-lg-6 d-flex justify-content-end align-content-center align-items-center l_btn">
+        <a href="#" class="add-button ms-lg-3 ms-1" data-bs-toggle="modal" data-bs-target="#addevent">Add New Event</a>
+      </div>
+    </div>
+    <div class="calendar-section">
+      <div id="calendar"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addevent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addeventLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content calendar-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Event</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" class="form">
+          {% csrf_token %}
+          <div class="row">
+            <div class="form-group">
+              <div class="form-title">
+                <label for="title">Event Title</label>
+              </div>
+              <input type="text" class="form-control form_style" id="title" name="title" placeholder="Enter Event Title">
+            </div>
+            <div class="form-group mt-2">
+              <div class="form-title">
+                <label for="start_date">Start Date</label>
+              </div>
+              <div class="input-div position-relative flatpickr position-relative">
+                <input type="date" class="form-control" name="start_date" id="start_date" placeholder="YYYY-MM-DD" data-input>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="invitation_type">Invitation Type</label>
+              <select class="form-select form-control form_style" name="invitation_type" id="invitation_type">
+                <option>Wedding Invites</option>
+                <option>Other Event-based Invites</option>
+                <option>Stationeries</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-end">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn add-button" id="add-event-button">Done</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

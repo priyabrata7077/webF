@@ -1,0 +1,50 @@
+{% load static %}
+
+<body id="body-pd">
+  <header class="header" id="header">
+    <div class="mobile-logo">
+      <img src="{% static '.dash/assets/image/logo.png' %}" alt="" />
+    </div>
+    <div class="header_toggle">
+      <i class="bx bx-menu" id="header-toggle"></i>
+    </div>
+    <div class="notify_bell">
+      <div class="dropdown user_drop row m-0">
+        <div
+          class="image-wrapper user-wrapper d-flex justify-content-between"
+          id="usdr"
+          data-bs-toggle="dropdown"
+        >
+          <img src="{{ user.userprofile.image.url }}" alt="" />
+          <h6 class="header-name">
+            {{ user.username }}
+            <span class="designation d-block">Admin</span>
+          </h6>
+          <i class="bx bx-chevron-down"></i>
+        </div>
+        <ul class="dropdown-menu dropdown-bg" aria-labelledby="usdr">
+          <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bx bx-log-out-circle"></i> Logout</a></li>
+          
+
+          <!-- Example using a form -->
+          <!-- <li>
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button type="submit">
+                <i class="bx bx-log-out-circle"></i> Logout
+              </button>
+            </form> 
+          </li> -->
+        </ul>
+      </div>
+      <a
+        class="notifi_icon"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#notification"
+        aria-controls="notification"
+        ><i class="bx bx-bell"></i><small class="notify_blink"></small
+      ></a>
+    </div>
+  </header>
+</body>

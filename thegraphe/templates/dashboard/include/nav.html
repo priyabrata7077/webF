@@ -1,0 +1,55 @@
+
+{% load static %}
+<div class="l-navbar shadow-lg" id="nav-bar">
+    <nav class="nav">
+        <div>
+            <a href="{% url 'panel' %}" class="nav_logo p-0"><span class="nav_logo-name"><img src="{% static './assets/image/logo.png' %}"
+                        class="w-75"></span> </a>
+            <div class="nav_list">
+                <a href="{% url 'roles' %}" class="nav_link"> <i class='bx bx-user-check nav_icon'></i> <span
+                        class="nav_name {% if request.path == '/dashboard/roles' %}active{% endif %}">Roles</span> </a>
+                <a href="{% url 'panel' %}" class="nav_link"> <i class='bx bxs-dashboard nav_icon'></i> <span
+                        class="nav_name {% if request.path == '/dashboard/home' %}active{% endif %}">Dashboard</span> </a>
+                <a href="{% url 'Project' %}" class="nav_link"> <i class="bx bx-notepad nav_icon"></i> <span
+                        class="nav_name {% if request.path == '/dashboard/project_status' %}active{% endif %}">Project Status</span> </a>
+
+                <div class="dropdown dropdown_style row m-0">
+                    <a href="" class="nav_link" id="product" data-bs-toggle="dropdown"> <i
+                            class='bx bx-cog nav_icon'></i> <span class="nav_name">Services</span></a>
+                    <ul class="dropdown-menu dropdown-bg " aria-labelledby="product">
+                        <li><a class="dropdown-item " href="{% url 'Services' %}"><i class="bx bx-grid-alt"></i>Service
+                                List</a></li>
+                        <li><a class="dropdown-item " href="{% url 'add_services' %}"><i class="bx bx-list-ul"></i> Add
+                                Service</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown dropdown_style row m-0">
+                    <a href="" class="nav_link" id="product" data-bs-toggle="dropdown"> <i
+                            class='bx bx-collection nav_icon'></i> <span class="nav_name">Collections</span></a>
+                    <ul class="dropdown-menu dropdown-bg " aria-labelledby="product">
+                        <li><a class="dropdown-item " href="{% url 'Collection' %}"><i
+                                    class="bx bx-grid-alt"></i>Collection List</a></li>
+                        <li><a class="dropdown-item " href="{% url 'add_collection' %}"><i class="bx bx-list-ul"></i> Add
+                                Collection</a></li>
+                    </ul>
+                </div>
+
+                <a href="{% url 'calender' %}" class="nav_link"> <i class='bx bx-calendar nav_icon'></i> <span
+                        class="nav_name ">Calendar</span> </a>
+
+                <a href="{% url 'invoice' %}" class="nav_link"> <i class='bx bx-receipt nav_icon'></i> <span
+                        class="nav_name ">Invoice</span> </a>
+
+                <a href="{% url 'monogram' %}" class="nav_link"> <i class='bx bx-image-add'></i> <span
+                        class="nav_name ">Monogram</span> </a>
+
+                <a href="{% url 'Feedback' %}" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i>
+                    <span class="nav_name ">Feedback</span> </a>
+                <a href="{% url 'rsvps' %}" class="nav_link"> <i class='bx bx-notepad nav_icon'></i>
+                        <span class="nav_name ">Rsvps Orders</span> </a>
+            </div>
+        </div>
+        <a href="logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span
+                class="nav_name">SignOut</span> </a>
+    </nav>
+</div>

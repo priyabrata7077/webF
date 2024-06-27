@@ -1,0 +1,101 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Roles{% endblock %}
+{% load static %}
+{% block content %}
+<div class="dashboard-heading">
+    <div class="count-container row m-0">
+        <div class="tabbedPanels"> <!-- begins the tabbed panels / wrapper -->
+            <div class="swiper collection-tab-swiper">
+                <ul class="collection_nav swiper-wrapper tabs">
+                    {% for role in userprofiles %}
+                        <li class="swiper-slide">
+                            <a class="nav-link {% if forloop.first %}active{% endif %}" href="#{{ role.id }}">
+                                {{ role.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+            <div class="panelContainer collection_content">
+                {% for role in userprofiles %}
+                    <div id="{{ role.id }}" class="panel {% if not forloop.first %}d-none{% endif %}">
+                        <ul class="collection_card collection_list">
+                            {% for user in role.users.all %}
+                                <li>
+                                    <span>
+                                        <img src="{{ user.userprofile.image.url }}" alt="" class="img-fluid collection-img">
+                                    </span>
+                                    <span>
+                                        <small class="small_para">ID</small>
+                                        <small>{{ user.id }}</small>
+                                    </span>
+                                    <span>
+                                        <small class="small_para">User Name</small>
+                                        <small>{{ user.username }}</small>
+                                    </span>
+                                    <span>
+                                        <small class="small_para">Instagram Link</small>
+                                        <small>
+                                            <a href="https://www.instagram.com/reel/Cm0w6fHBFdu/?utm_source=ig_web_copy_link" target="_blank" data-toggle="tooltip" data-placement="top" title="Insta Reel">
+                                                <i class='bx bxl-instagram'></i>
+                                            </a>
+                                        </small>
+                                    </span>
+                                    <span>
+                                        <small class="small_para">Similar</small>
+                                        <small data-bs-toggle="modal" data-bs-target="#view_similar" class="view_pop_up">View
+                                            <i class='bx bx-right-arrow-alt fs-6'></i>
+                                        </small>
+                                    </span>
+                                    <span>
+                                        <small class="small_para">Status</small>
+                                        <span class="badge bg-success">Active</span>
+                                    </span>
+                                    <span>
+                                        <small class="small_para">Action</small>
+                                        <a href="{{ edit_role }}" class="edtBtn" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class='bx bxs-edit'></i>
+                                        </a>
+                                    </span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div> <!-- end div class="panelContainer" or panel wrapper -->
+        </div> <!-- ends the tabbed panels / wrapper -->
+    </div>
+</div>
+
+{% block extra_js %}
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Swiper.js -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<!-- Custom JS -->
+<script>
+    $(document).ready(function(){
+        $('.collection_nav .nav-link').click(function(e){
+            e.preventDefault();
+            var target = $(this).attr('href');
+
+            $('.panel').addClass('d-none');
+            $(target).removeClass('d-none');
+
+            $('.collection_nav .nav-link').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+
+    var swiper = new Swiper('.collection-tab-swiper', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+{% endblock %}
+{% endblock %}

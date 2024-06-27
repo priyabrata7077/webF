@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{%  load static %}
+{%  block content %}
+<section class="app_section">
+    <div class="container-fluid">
+        <div class="row m-0 justify-content-between align-items-center">
+            <div class="col-12 col-lg-7 col-md-7 col-sm-12">
+                <h1 data-aos="fade-down" data-aos-duration="1000">Plan your <span>dream wedding</span> <span>with Wedskey!</span></h1>
+                <p data-aos="fade-up" data-aos-duration="1400">Download the app now and get top entertainment & wedding updates.</p>
+                <div class="play_store_btn">
+                    <a href="" data-aos="fade-up" data-aos-duration="1600"><img src="{% static 'assets/image/Google_Play.png' %}" data-lazy data-src="{% static 'assets/image/Google_Play.png' %}">Get it on Google play</a>
+                    <a href="" data-aos="fade-up" data-aos-duration="2400"><img src="{% static 'assets/image/Apple_Logo.png' %}" data-lazy data-src="{% static 'assets/image/Apple_Logo.png' %}">Download on the app store</a>
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 col-md-5 col-sm-12 wedskey_img">
+                <img src="{% static 'assets/image/app_img.png' %}" class="w-100" data-lazy data-src="{% static 'assets/image/app_img.png' %}" data-aos="zoom-in" data-aos-duration="1800">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

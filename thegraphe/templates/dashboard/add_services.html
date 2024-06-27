@@ -1,0 +1,163 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}add_services{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="bg-light">
+    <div class="container-fluid dashboard-heading">
+        <h4 class="mb-4"><a href="{% url 'Services' %}" class="text-black"><i class="bx bx-arrow-back"></i></a> Add Service</h4>
+        <div class="manage-user-container p-5">
+            <form method="post" action="{% url 'add_services' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="first-row align-items-start">
+                    <div class="row primary-col">
+                        <div class="col-lg-6">
+                            <div class="col-12">
+                                <div style="width: 280px;">
+                                    <label for="image">Image:</label>
+                                    <div class="brand-wrapper brand-wrapper-first">
+                                        <img src="{% static 'assets/image/no-photo.jpg' %}" id="image_preview">
+                                        <input type="file" class="brand-file brand-file-first" name="image" id="image" onchange="previewImage(this);">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                        <label for="image"> Feature Image:</label>
+                        <div class="col-12">
+                            <div class="col-12 multi-field-wrapper d-inline-flex">
+                                <div class="multi-fields">
+                                    <div
+                                        class="multi-field d-inline-block position-relative  align-items-start align-items-sm-center gap-4">
+                                        <div class="brand-wrapper">
+                                            <img src="{% static 'assets/image/diffolt_pic.jpg' %}" id="img_url">
+                                            <input name="image" type="file" class="brand-file" id="upload" onChange="img_pathUrl(this);">
+                                        </div>
+                                        <button type="button" class="remove-field btn account-image-reset mb-4">
+                                            <i data-feather="trash-2"></i>
+                                        </button>
+                                        <small>max size - 50MB</small>
+                                    </div>
+                                </div>
+                                <div class="add-btn plus-btn">
+                                    <button type="button" class="add-field btn ">
+                                      <i data-feather="plus"></i>
+                                    </button>
+                                </div>
+                              </div>
+                        </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="product_name">Product Name:</label>
+                                <input type="text" id="product_name" name="product_name" class="form-control form_style" placeholder="Product Name">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="price">Price:</label>
+                                <input type="text" id="price" name="price" class="form-control form_style" placeholder="Price">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="Discount">Discount:</label>
+                                <input type="text" id="Discount" name="Discount" class="form-control form_style" placeholder="Discount">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="cultural_segregation">Cultural Segregation:</label>
+                                <select id="cultural_segregation" name="cultural_segregation" multiple class="form-select form-control form_style">
+                                    {% for cultural_segregation_instance in cultural_segregations %}
+                                        <option value="{{ cultural_segregation_instance.id }}">{{ cultural_segregation_instance.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="model_Name">Model Name:</label>
+                                <input type="text" id="model_Name" name="model_Name" class="form-control form_style" placeholder="Model Name">
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label for="sub_category">Category:</label>
+                                <select id="sub_category" name="sub_category" class="form-select form-control form_style" data-url="{% url 'fetch_related_main_categories' 0 %}">
+                                    {% for subcategory in subcategories %}
+                                        <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <!-- Add a container for the main_category options -->
+                            <div class="form-group mb-3 main_category">
+                                <label for="main_category">Main Category:</label>
+                                <select id="main_category" name="main_category" class="form-select form-control form_style">
+                                    <!-- Options will be dynamically loaded here -->
+                                </select>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="Tags">Tags:</label>
+                                <input type="text" id="Tags" name="Tags" class="form-control form_style" placeholder="Tags">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="Description">Description:</label>
+                                <textarea id="Description" id="Description" name="Description" class="form-control form_style" rows="4" placeholder="Description"></textarea>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label for="section">Section:</label>
+                                <select id="section" name="section" class="form-select form-control form_style">
+                                    {% for Sections in sections %}
+                                        <option value="{{ Sections.id }}" {% if Sections.id == product.section.id %}selected{% endif %}>{{ Sections.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="status">Status:</label>
+                                <select id="status" name="status" class="form-select form-control form_style">
+                                    <option value="Active" {% if product.status == "Active" %}selected{% endif %}>Active</option>
+                                    <option value="Inactive" {% if product.status == "Inactive" %}selected{% endif %}>Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-lg-end justify-content-start mt-5">
+
+                            <button class="add-form">Save Product</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Listen for changes in the sub_category select element
+        $('#sub_category').on('change', function() {
+            var subcategoryId = $(this).val();
+            var url = $(this).data('url').replace('0', subcategoryId);  // Replace the '0' with the actual subcategoryId
+    
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#main_category').empty();
+                    $.each(data, function(index, main_category) {
+                        $('#main_category').append(
+                            $('<option>', {
+                                value: main_category.id,
+                                text: main_category.name
+                            })
+                        );
+                    });
+                },
+                error: function(error) {
+                    console.error('Error fetching related main categories:', error);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

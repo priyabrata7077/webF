@@ -1,0 +1,97 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}invoice{% endblock %}
+{%  load static %}
+{%  block content %}
+
+<div class="bg-light">
+    <div class="container-fluid dashboard-heading">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 text-black">Invoices List</h4>
+            <button class="add-form "><i class="bx bx-download me-2"></i>Export</button>
+        </div>
+        <div class="row m-0 mt-4 mt-lg-5">
+            <div class="dashboard-container-inside timeline ">     
+                <div class="dashboard-container-inside-body innerTable ">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Invoice Id</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Client Name"><img src="assets/image/avatar-13.png"><a href="view_invoice.html">Mark</a></td>
+                                <td data-label="Date">28/11/2022</td>
+                                <td data-label="Email"><a href="view_invoice.html">exapme@gmail.com</a></td>
+                                <td data-label="Invoice ID"><a href="view_invoice.html">IN-325560</a></td>
+                                <td data-label="Total">₹ 4522</td>
+                                <td data-label="Status"><span class="badge bg-warning">Pending</span></td>
+                                <td>
+                                    <a href="edit_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bx bxs-edit"></i></a>
+                                    <a href="view_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="View"><img src="assets/image/eye.svg" class="view_img"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Client Name"><img src="assets/image/avatar-13.png"><a href="view_invoice.html">Mark</a></td>
+                                <td data-label="Date">28/11/2022</td>
+                                <td data-label="Email"><a href="view_invoice.html">exapme@gmail.com</a></td>
+                                <td data-label="Invoice ID"><a href="view_invoice.html">IN-325560</a></td>
+                                <td data-label="Total">₹ 4522</td>
+                                <td data-label="Status"><span class="badge bg-success">Successfull</span></td>
+                                <td>
+                                    <a href="edit_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bx bxs-edit"></i></a>
+                                    <a href="view_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="View"><img src="assets/image/eye.svg" class="view_img"></a>
+                                </td>
+                            </tr>
+                            
+                          
+                            <tr>
+                                <td data-label="Client Name"><img src="assets/image/avatar-13.png"><a href="view_invoice.html">Mark</a></td>
+                                <td data-label="Date">28/11/2022</td>
+                                <td data-label="Email"><a href="view_invoice.html">exapme@gmail.com</a></td>
+                                <td data-label="Invoice ID"><a href="view_invoice.html">IN-325560</a></td>
+                                <td data-label="Total">₹ 4522</td>
+                                <td data-label="Status"><span class="badge bg-success">Successfull</span></td>
+                                <td>
+                                    <a href="edit_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bx bxs-edit"></i></a>
+                                    <a href="view_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="View"><img src="assets/image/eye.svg" class="view_img"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Client Name"><img src="assets/image/avatar-13.png"><a href="view_invoice.html">Mark</a></td>
+                                <td data-label="Date">28/11/2022</td>
+                                <td data-label="Email"><a href="view_invoice.html">exapme@gmail.com</a></td>
+                                <td data-label="Invoice ID"><a href="view_invoice.html">IN-325560</a></td>
+                                <td data-label="Total">₹ 4522</td>
+                                <td data-label="Status"><span class="badge bg-danger">Reject</span></td>
+                                <td>
+                                    <a href="edit_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bx bxs-edit"></i></a>
+                                    <a href="view_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="View"><img src="assets/image/eye.svg" class="view_img"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Client Name"><img src="assets/image/avatar-13.png"><a href="view_invoice.html">Mark</a></td>
+                                <td data-label="Date">28/11/2022</td>
+                                <td data-label="Email"><a href="view_invoice.html">exapme@gmail.com</a></td>
+                                <td data-label="Invoice ID"><a href="view_invoice.html">IN-325560</a></td>
+                                <td data-label="Total">₹ 4522</td>
+                                <td data-label="Status"><span class="badge bg-info">Refund</span></td>
+                                <td>
+                                    <a href="edit_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bx bxs-edit"></i></a>
+                                    <a href="view_invoice.html" class="edtBtn" data-toggle="tooltip" data-placement="top" title="View"><img src="assets/image/eye.svg" class="view_img"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

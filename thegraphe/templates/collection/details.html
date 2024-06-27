@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% block title %}details{% endblock %}
+{%  load static %}
+{%  block content %}
+<section class="collection">
+    <div class="container-fluid">
+      <div class="row justify-content-between">
+        <div class="col-12 col-md-4 col-lg-5 p-0">
+          <!-- <div class="swiper-container-wrapper">
+            <div class="swiper-container gallery-thumbs">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <img src="assets/image/detail-image2.png" id="detail-image.png" data-lazy data-src="assets/image/detail-image2.png">
+                </div>
+                <div class="swiper-slide">
+                  <img src="assets/image/detail-image.png" id="img-input" data-lazy data-src="assets/image/detail-image.png">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-container gallery-top">
+              <div class="swiper-wrapper ">
+                <div class="swiper-slide imgBox">
+                  <img src="assets/image/detail-image2.png" id="img-input" data-origin="assets/image/detail-image2.png" data-lazy data-src="assets/image/detail-image2.png">
+                </div>
+                <div class="swiper-slide imgBox">
+                  <img src="assets/image/detail-image.png" id="img-input" data-origin="assets/image/detail-image.png" data-lazy data-src="assets/image/detail-image.png">
+                </div>
+              </div>
+            </div>
+          </div>-->
+          <div class="swiper collect_detailsSlid">
+            <div class="swiper-wrapper ">
+              <div class="swiper-slide imgBox">
+                <img src="/{{ product.image }}" id="img-input" data-origin="/{{ product.image }}" data-lazy data-src="/{{ product.image }}">
+              </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        </div> 
+
+        <div class="col-lg-6 col-md-8 collection-detail">
+          
+          <h2>
+            {{ product.product_name }}
+            
+            <!-- share_buttons.html -->
+            <div class="collection-detail">
+              <!-- Facebook Share Button -->
+             
+              <a  href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank">
+                  <i class="fab fa-facebook"></i>
+              </a>
+ 
+              <!-- Twitter Share Button -->
+              <a  href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check%20out%20this%20awesome%20page" target="_blank">
+                  <i class="fab fa-twitter"></i>
+              </a>
+              
+              <!-- Instagram Share Button -->
+              <a href="https://www.instagram.com/sharer.php?u={{ request.build_absolute_uri }}" target="_blank">
+                  <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+
+          </h2>
+          <div>
+            <P>{{ product.Description|safe }}</P>
+          </div>
+
+          <!-- <ul class="mt-lg-4 mt-5">
+            <li>Lorem ipsum dolor sit ammet</li>
+            <li>Maurius molestine</li>
+            <li>Dones egastas</li>
+          </ul> -->
+          
+          <div class="row m-0 align-items-center">
+            
+            <div class="col-12 col-lg-7 col-md-7 p-0">
+              <form class="collect_d_check" method="post" action="{% url 'payment' %}">
+                {% csrf_token %}
+                <input type="hidden" name="csrfmiddlewaretoken" value="sFwcNUi6jgSSZfkJ7bg1bB9PKgPmuJB1WXCqxHrA7w3nOI5azzV5POffKrpj60kn">
+                
+                <div class="form-group">
+                  <label for="product_type">Product Type:</label>
+                  <select class="form-control" id="product_type" name="product_type" required="">
+                      <option value="">Select Type</option>
+                      <option value="cast">Cast</option>
+                      <option value="wedding" selected="product_subtype">Wedding</option>
+                  </select>
+                </div>
+              
+              <div class="form-group" id="weddingSubtypeGroup" style="display: none;">
+                  <label for="product_subtype">Wedding Subtype:</label>
+                  <select class="form-control" id="product_subtype" name="product_subtype" required="">
+                      <option value=""></option>
+                      <option value=""></option>
+                      <option value=""></option>
+                  </select>
+              </div>
+
+                <!-- <p>Theme</p>
+                <div class="form-check mb-3">
+                  
+                </div> -->
+                <div class="form-group">
+                  <label for="duration">Select Duration:</label>
+                  <select class="form-control" id="duration" name="duration" required="">
+                    <option value="">Select Duration</option>
+                    
+                      <option value="15s">15 seconds</option>
+                    
+                      <option value="20s">20 seconds</option>
+                    
+                      <option value="30s" selected="">30 seconds</option>
+                    
+                      <option value="40s">40 seconds</option>
+                    
+                      <option value="1m">1 minute</option>
+                    
+                      <option value="1.5m">1.5 minutes</option>
+                    
+                      <option value="above">Above 1.5 minutes</option>
+                    
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="format">Format Type:</label>
+                  <select class="form-control" id="format" name="format" aria-required="true" required="">
+                      <option value="">Select Format</option>
+                    
+                      <option value="MP4">Mp4</option>
+                    
+                      <option value="GIF">Gif</option>
+                    
+                  </select>
+                </div>
+                
+            </form></div>
+        
+        <form class="collect_d_check" id="buy-now-form"  enctype="multipart/form-data">
+          {% csrf_token %}
+          <!-- Form fields here -->
+          <div class="add-to-cart d-flex justify-content-start gap-3">
+              {% if user.is_authenticated %}
+                  <button type="submit" class="btn" id="buy-now-button"><a href="{% url 'payment' %}">Buy Now</a></button>
+                  <!-- Hidden input fields for product details -->
+                  <input type="hidden" id="product_id" name="product_id" value="{{ product.id }}">
+                  <input type="hidden" id="product_type" name="product_type" value="{{ product_type }}">
+                  <input type="hidden" id="product_subtype" name="product_subtype" value="{{ product.product_subtype }}">
+                  <input type="hidden" id="price" name="price" value="{{ product.price }}">
+                  <input type="hidden" id="product_name" name="product_name" value="{{ product.product_name }}">
+                  <input type="hidden" id="image" name="image" value="{{ product.image }}">
+                  <!-- Other hidden fields here -->
+              {% else %}
+                  <button type="submit" class="btn" id="buy-now-button"><a href="{% url 'profile' %}?next={{ request.path }}">log in</a></button>
+              {% endif %}
+                <button type="button" class="btn"><a href="{% url 'custom_form' %}">customize </a></button>
+          </div>
+      </form>   
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- ----------------------------------end-collection-detail------------------>
+  <!-- ----------------------------------carousel------------------>
+  <section class="carousel">
+    <div class="container-fluid">
+      <a href="javascript:void(0);" class="view_similar ">View Similar</a>
+      
+      <div class="carousel-slide">
+        <div class="swiper mySwiperSlide">
+          <div class="swiper-wrapper ">
+            {% for product in Products %}
+            <div class="swiper-slide d-flex flex-column">
+              <img src="{{ product.image }}" data-lazy data-src="{{ product.image }}">
+              <div class="slider-desc">
+                <h3 class="pt-lg-3">{{product.product_name}}</h3>
+                <p class="py-lg-1"><span>₹</span>{{product.price}}</p>
+              </div>              
+            </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        
+
+      </div>
+    </div>
+  </section>
+  <script>
+    // Function to update hidden fields in the second form
+    function updateHiddenFields() {
+        // Get the selected values from the first form
+        var productType = document.getElementById("product_type").value;
+        var productSubtype = document.getElementById("product_subtype").value;
+        var price = document.getElementById("price").value; // You may need to adjust this depending on where the price is coming from.
+        var productName = document.getElementById("product_name").value;
+        var image = document.getElementById("image").value;
+
+        // Update the hidden fields in the second form
+        document.getElementById("buy-now-form").elements["product_type"].value = productType;
+        document.getElementById("buy-now-form").elements["product_subtype"].value = productSubtype;
+        document.getElementById("buy-now-form").elements["price"].value = price;
+        document.getElementById("buy-now-form").elements["product_name"].value = productName;
+        document.getElementById("buy-now-form").elements["image"].value = image;
+    }
+
+    // Attach the function to the "Buy Now" button click event
+    document.getElementById("buy-now-button").addEventListener("click", updateHiddenFields);
+  </script>
+  
+{% endblock %}

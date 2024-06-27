@@ -1,0 +1,591 @@
+{% extends 'base.html' %}
+{% block title %}custom form{% endblock %}
+{%  load static %}
+{%  block content %}
+
+<section class="custom_form">
+  <div class="container">
+    <div class="row m-0">
+      <h1>Customize Your Design</h1>
+      {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+          <li style="color:white;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    
+{% endif %}
+    </div>
+    <div class="row">
+      <div class="card">
+        <form class="form"  action="{% url 'custom_form_save' %}" method="post">
+        {% csrf_token %}
+            <div class="left-side" >
+                <!-- <div class="left-heading">
+                    <h3>indeed</h3>
+                </div> -->
+                <div class="steps-content">
+                    <h3>Step <span class="step-number">1</span></h3>
+                    <!-- <p class="step-number-content active">Enter your personal information to get closer to companies.</p>
+                    <p class="step-number-content d-none">Get to know better by adding your diploma,certificate and education life.</p>
+                    <p class="step-number-content d-none">Help companies get to know you better by telling then about your past experiences.</p>
+                    <p class="step-number-content d-none">Add your profile piccture and let companies find youy fast.</p> -->
+                </div>
+                <ul class="progress-bar">
+                    <li class="active">Details</li>
+                    <li>Your Details</li>
+                    <li>Spouse's Details</li>
+                    <li>Event</li>
+                </ul>
+            </div>
+            <div class="right-side">
+              <div class="main active">
+                <div class="input-text">
+                  <label>Phone <sub class="text-danger">*</sub></label>
+                  <div class="input-div">
+                      <input type="text" name="ph" required>
+                  </div>
+                </div>
+                <div class="input-text">
+                  <label>Email <sub class="text-danger">*</sub></label>
+                  <div class="input-div">
+                      <input type="text" name="email" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-lg-8 col-md-7">
+                    <div class="input-text">
+                      <label>Billing name <sub class="text-danger">*</sub></label>
+                      <div class="input-div">
+                          <input type="text" name="billing_name" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-4 col-md-5">
+                    <div class="input-text">
+                      <label>GSTIN <sub class="text-danger">*</sub></label>
+                      <div class="input-div">
+                          <input type="text" name="gstnumber" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-text">
+                  <label>Billing Address <sub class="text-danger">*</sub></label>
+                  <div class="input-div">
+                      <textarea class="h-auto"  rows="3" name="billing_address" required></textarea>
+                  </div>
+                </div>
+                <div class="buttons d-flex justify-content-end">
+                  <a href="#step1"   class="next_button btn">Next Step</a>
+                </div>
+              </div>
+              <!--End_STEP-ONE-->
+                
+                <div id="step1" class="main ">
+                  <div class="row d-none">
+                    <div class="input-text">
+                      <label>Event Name</label>
+                      <div class="input-div">
+                        <select required>
+                          <option selected disabled>Select Event</option>
+                          <option name="you" value="wead">Weadding</option>
+                          <option name="you" value="birth">Birthday</option>
+                          <option name="you" value="anniv">Wedding Anniversary</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="input-text wead box">
+                      <label>Select Template</label>
+                      <div class="template_list">
+                        <label>
+                          <input type="radio" name="test" value="small">
+                          <img src="assets/image/ba2.png" alt="Option 1">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                        
+                        <label>
+                          <input type="radio" name="test" value="big">
+                          <img src="assets/image/cari1.png" alt="Option 2">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                        <label>
+                          <input type="radio" name="test" value="big">
+                          <img src="assets/image/b4.png" alt="Option 3">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                        <label>
+                          <input type="radio" name="test" value="small">
+                          <img src="assets/image/ba2.png" alt="Option 4">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                        
+                        <label>
+                          <input type="radio" name="test" value="big">
+                          <img src="assets/image/cari1.png" alt="Option 5">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                        <label>
+                          <input type="radio" name="test" value="big">
+                          <img src="assets/image/b4.png" alt="Option 6">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="input-text birth box">
+                      <label>Select Template</label>
+                      <div class="template_list">
+                        <label>
+                          <input type="radio" name="test" value="small">
+                          <img src="assets/image/ba2.png" alt="Option 1">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                        <label>
+                          <input type="radio" name="test" value="big">
+                          <img src="assets/image/cari1.png" alt="Option 2">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                        <label>
+                          <input type="radio" name="test" value="big">
+                          <img src="assets/image/b4.png" alt="Option 3">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="input-text anniv box">
+                      <label>Select Template</label>
+                      <div class="template_list">
+                        <label>
+                          <input type="radio" name="test" value="big">
+                          <img src="assets/image/b4.png" alt="Option 3">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                        <label>
+                          <input type="radio" name="test" value="big">
+                          <img src="assets/image/cari1.png" alt="Option 2">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                        <label>
+                          <input type="radio" name="test" value="small">
+                          <img src="assets/image/ba2.png" alt="Option 1">
+                          <span> <small>₹</small> 5500</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-text">
+                    <label for="you">You <sub class="text-danger">*</sub></label>
+                      <div class="input-div">
+                          <select name="you" id="you">
+                            <option value="" selected disabled>Select</option>
+                            <option value="Bride">Bride</option>
+                            <option value="Groom">Groom</option>
+                          </select>
+                      </div>
+                  </div>
+                    <div class="row">
+                      <div class="col-12 col-lg-6 col-md-6">
+                        <div class="input-text">
+                          <label>Full Name <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                              <input name="Name" type="text">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-6 col-md-6">
+                        <div class="input-text">
+                          <label>Instagram ID <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                              <input name="Instagrame_id" type="text">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-lg-6 col-md-6">
+                        <div class="input-text">
+                          <label>Full Name of Father <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                              <input name="fathter_name" type="text">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-6 col-md-6">
+                        <div class="input-text">
+                          <label>Full Name of Mother <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                              <input name="mother_name" type="text">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-lg-6 col-md-6">
+                        <div class="input-text">
+                          <label>Full Name of Grandfather <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                              <input name="grandfathter_name" type="text">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-6 col-md-6">
+                        <div class="input-text">
+                          <label>Full Name of Grandmother <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                              <input name="grandmother_name" type="text">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-text">
+                        <div class="row">
+                          <label>Hi-Res photo</label>
+                          <div class="col-12 multi-field-wrapper d-inline-flex">
+                            <div class="multi-fields">
+                                <div
+                                    class="multi-field d-inline-block position-relative  align-items-start align-items-sm-center gap-4">
+                                    <div class="brand-wrapper">
+                                        <img src="assets/image/diffolt_pic.jpg" id="img_url">
+                                        <input name="image" type="file" class="brand-file" id="upload" onChange="img_pathUrl(this);">
+                                    </div>
+                                    <button type="button" class="remove-field btn account-image-reset mb-4">
+                                        <i data-feather="trash-2"></i>
+                                    </button>
+                                    <small>max size - 50MB</small>
+                                </div>
+                            </div>
+                            <div class="add-btn plus-btn">
+                                <button type="button" class="add-field btn ">
+                                  <i data-feather="plus"></i>
+                                </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+
+                    
+                    <div class="buttons button_space d-flex justify-content-end">
+                        <a href="#step1" class="back_button">Previous</a>
+                        <a href="#step2" class="next_button">Next Step</a>
+                    </div>
+                </div>
+                <!--End_STEP-Two-->
+
+                <div id="step2" class="main">
+                  <div class="input-text">
+                    <label>Spouse <sub class="text-danger">*</sub></label>
+                    <div class="input-div">
+                      <select name="Spouse">
+                        <option selected disabled>Select</option>
+                        <option>Bride</option>
+                        <option>Groom</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-lg-6 col-md-6">
+                      <div class="input-text">
+                        <label>Full Name <sub class="text-danger">*</sub></label>
+                        <div class="input-div">
+                            <input name="SpouseName" type="text">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-md-6">
+                      <div class="input-text">
+                        <label>Instagram ID <sub class="text-danger">*</sub></label>
+                        <div class="input-div">
+                            <input name="SpouseInstagrame_id" type="text">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-lg-6 col-md-6">
+                      <div class="input-text">
+                        <label>Full Name of Father <sub class="text-danger">*</sub></label>
+                        <div class="input-div">
+                            <input name="Spousefathter_name" type="text">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-md-6">
+                      <div class="input-text">
+                        <label>Full Name of Mother <sub class="text-danger">*</sub></label>
+                        <div class="input-div">
+                            <input name="Spousemother_name" type="text">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-lg-6 col-md-6">
+                      <div class="input-text">
+                        <label>Full Name of Grandfather <sub class="text-danger">*</sub></label>
+                        <div class="input-div">
+                            <input name="Spousegrandfathter_name" type="text">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-md-6">
+                      <div class="input-text">
+                        <label>Full Name of Grandmother <sub class="text-danger">*</sub></label>
+                        <div class="input-div">
+                            <input name="Spousegrandmother_name" type="text">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-text">
+                      <div class="row">
+                        <label>Hi-Res photo</label>
+                        <div class="col-12 multi-field-wrapper d-inline-flex">
+                          <div class="multi-fields">
+                              <div
+                                  class="multi-field d-inline-block position-relative  align-items-start align-items-sm-center gap-4">
+                                  <div class="brand-wrapper">
+                                      <img src="assets/image/diffolt_pic.jpg" id="img_url">
+                                      <input name="Spouseimage" type="file" class="brand-file" id="upload" onChange="img_pathUrl(this);">
+                                  </div>
+                                  <button type="button" class="remove-field btn account-image-reset mb-4">
+                                      <i data-feather="trash-2"></i>
+                                  </button>
+                                  <small>max size - 50MB</small>
+                              </div>
+                          </div>
+                          <div class="add-btn plus-btn">
+                              <button type="button" class="add-field btn ">
+                                <i data-feather="plus"></i>
+                              </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="buttons button_space d-flex justify-content-end">
+                      <a href="#step2" class="back_button">Previous</a>
+                      <a href="#step3" class="next_button">Next Step</a>
+                  </div>
+                </div>
+                <!--End_STEP-Three-->
+                <div  id="step3" class="main">
+                  <div class="ev_scroll">
+                    <div class="row dynamic-field" id="dynamic-field-1">
+                      <div class="col-12">
+                        <div class="input-text">
+                          <label>Event Name <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                              <input name="Event_name" type="text">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-4 col-md-4">
+                        <div class="input-text">
+                          <label>Date <sub class="text-danger">*</sub></label>
+                          <div class="input-div flatpickr">
+                            <input name="date_field" id="date" type="date" placeholder="DD-MM-YYYY" class="date1" data-input />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-3 col-md-3">
+                        <div class="input-text">
+                          <label>Time <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                            <input name="time_field" id="time_field" type="time" placeholder="00:00" data-input class="time" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-5 col-md-5">
+                        <div class="input-text">
+                          <label>Venue <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                              <input name="venue" type="text">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="input-text">
+                          <label>Description <sub class="text-danger">*</sub></label>
+                          <div class="input-div">
+                              <textarea name="Description" class="h-auto" rows="3"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="Addon_btn">
+                      <a href="javascript:void(0);" class="AddButton"><i data-feather="file-plus"></i>Addon Services</a>
+                      <div class="Logodive">
+
+                        <div class="input-text">
+                          <label>Add Logo</label>
+                          <div class="input-div">
+                            <select>
+                              <option value="no">No</option>
+                              <option value="addlogo">Yes</option>
+                            </select>
+                          </div>
+                          <div class="addlogo box w-100 mt-3">
+                            <div class="row">
+                              <div class="col-6">
+                                <label>Logo Title</label>
+                                <input type="text">
+                              </div>
+                              <div class="col-6">
+                                <label>Logo Sub-title</label>
+                                <input type="text">
+                              </div>
+                            </div>
+                          </div>
+                        </div><!--end_logo_add-->
+
+                        <div class="input-text">
+                          <label>Event Post Type</label>
+                          <div class="input-div">
+                            <select>
+                              <option selected disabled>Select</option>
+                              <option value="video">Video</option>
+                              <option value="shap">Static</option>
+                              <option value="">Illustration</option>
+                            </select>
+                          </div>
+                          <div class="video box2">
+                            <label class="mt-2 mb-0">Video Time</label>
+                            <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="inlineRadio1">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                5 Sec
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="inlineRadio2">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                10 Sec
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="inlineRadio3">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option1">
+                                12 Sec
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="inlineRadio4">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2">
+                                14 Sec
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="inlineRadio5">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option1">
+                                18 Sec
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="inlineRadio6">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option2">
+                                20 Sec
+                              </label>
+                            </div>
+                          </div>
+                          <div class="shap box2">
+                            <label class="mt-2 mb-0">Shape</label>
+                            <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="inlineRadio11">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio11" value="option1">
+                                Rectangle
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="inlineRadio12">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio12" value="option1">
+                                Square
+                              </label>
+                            </div>
+                          </div>
+                        </div><!--post_type-->
+
+                        <div class="input-text">
+                          <label>Add Caricature</label>
+                          <div class="input-div">
+                            <select>
+                              <option selected disabled>Select</option>
+                              <option value="yes">Yes</option>
+                              <option value="no">No</option>
+                            </select>
+                          </div>
+                          <div class="yes box">
+                            <label>Select Template</label>
+                            <div class="template_list">
+                              <label>
+                                <input type="radio" name="test" value="small">
+                                <img src="assets/image/ba2.png" alt="Option 1">
+                                <span> <small>₹</small> 5500</span>
+                              </label>
+                              
+                              <label>
+                                <input type="radio" name="test" value="big">
+                                <img src="assets/image/cari1.png" alt="Option 2">
+                                <span> <small>₹</small> 5500</span>
+                              </label>
+                              <label>
+                                <input type="radio" name="test" value="big">
+                                <img src="assets/image/b4.png" alt="Option 3">
+                                <span> <small>₹</small> 5500</span>
+                              </label>
+                              <label>
+                                <input type="radio" name="test" value="small">
+                                <img src="assets/image/ba2.png" alt="Option 4">
+                                <span> <small>₹</small> 5500</span>
+                              </label>
+                              
+                              <label>
+                                <input type="radio" name="test" value="big">
+                                <img src="assets/image/cari1.png" alt="Option 5">
+                                <span> <small>₹</small> 5500</span>
+                              </label>
+                              <label>
+                                <input type="radio" name="test" value="big">
+                                <img src="assets/image/b4.png" alt="Option 6">
+                                <span> <small>₹</small> 5500</span>
+                              </label>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="event_add_btn">
+                    <button type="button" id="add-button" class="ev_add">
+                      <i data-feather="plus"></i> Add Event</button>
+                      <button type="button" id="remove-button" class="rev_add" disabled="disabled">
+                      <i data-feather="trash-2"></i></button>
+                  </div>
+                  <div class="buttons button_space mt-4">
+                    <!-- <div>
+                      <p class="mb-0">
+                        <b>Total Price:</b>
+                        <small>Logo : 00.0</small>
+                        <small>Post Type: 00.0</small>
+                        <small>Caricature: 00.0</small>
+                        <span>= 00.0</span>
+                      </p>
+                    </div> -->
+                    <div class="mt-3">
+                      <a href="#step3" class="back_button mt-0">Back</a>
+                      <button type="submit" class="pay_nowbtn mt-0">Finish</button>
+                      
+                    </div>
+                  </div>
+                </div>
+                <!--End_STEP-Four-->
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
+</section>
+
+  {% endblock %}

@@ -1,0 +1,399 @@
+{% extends 'base.html' %}
+{% block title %}collection{% endblock %}
+{%  load static %}
+{%  block content %}
+
+
+<style>
+  input[type=range]{
+  -webkit-appearance: none;
+  width:100%;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+  width: 1000px;
+  height: 5px;
+  background: #f1b583;
+  border: none;
+  border-radius: 3px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: goldenrod;
+  margin-top: -5px;
+  }
+  input[type=range]:focus {
+  outline: none;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #f1b583;
+  }
+</style>
+<section class="hero">
+    <div class="container-fluid text-center">
+      <h1 class="display-2">Our collection</h1>
+      <p class="text-uppercase">Lorem ipsum dolor sit amet, consectetur adipiscing elitFusce ut mi justo</p>
+    </div>
+  </section>
+  <!--------------------------------------filter------------------------>
+  <section class="filter-bar pt-lg-5 pb-lg-2">
+    <div class="filter-left ">
+      <div class="d-lg-none d-block">
+        <i class="fa-solid fa-lg fa-sliders "></i>
+      </div>
+      <div class="me-2">
+        <p class="rounded-pill ps-lg-0" id="user"><i data-feather="filter"></i>FILTERS</p>
+      </div>
+      <div class="d-lg-block d-none">
+        <p class="border-0"><a href="{% url 'collection' %}">CLEAR ALL</a></p>
+      </div>
+    </div>
+
+    {% comment %} <div class="filter-right px-3 py-1 rounded-pill">
+      <div>
+        <span class="d-lg-block d-none">Sort By : </span>
+      </div>
+      <div>
+        <form method="GET" action="{% url 'collection' %}">
+          <select class="form-control form-select" aria-label="Default select example" name="sort_by">
+              <option value="recommended" {% if request.GET.sort_by == 'recommended' %}selected{% endif %}><button type="submit" class="btn btn-primary">Recommended</button></option>
+              <option value="popularity" {% if request.GET.sort_by == 'popularity' %}selected{% endif %}><button type="submit" class="btn btn-primary">Popularity</button></option>
+              <option value="rating" {% if request.GET.sort_by == 'rating' %}selected{% endif %}><button type="submit" class="btn btn-primary">Rating</button></option>
+              <option value="price" {% if request.GET.sort_by == 'price' %}selected{% endif %}><button type="submit" class="btn btn-primary">Price</button></option>
+          </select>
+         
+      </form>
+      </div>
+
+    </div> {% endcomment %}
+  </section>
+  <!-- ---------------------------------- -filter end--------------------- -->
+  <!-- ------------------------------------card--------------------- -->
+  <section class="card-bar py-lg-5">
+    <div class="container-fluid">
+      
+      <div class="row ">
+        <div class="col-lg-3 px-0">
+          <form class="accordion-wrapper sticky-lg-top filter-form" id="toggle-div" method="GET" action="{% url 'collection' %}">
+            <button type="button" class="btn-close d-lg-none" id="close-sidebar" data-bs-dismiss="accordion-wrapper" aria-label="Close"></button>
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button p-0" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                            aria-controls="panelsStayOpen-collapseOne">
+                        Price
+                    </button>
+                </h2>
+                <div class="reange_price">
+                    <div class="product-widget mb-30">
+                        <h5 class="pt-title">Filter By Price</h5>
+                        <div class="range-price mt-30">
+                            <input type="range" class="multi-range success" style="color:red;"
+                                   value="{{FilterPrice}}" min="{{min_price.price__min}}" max="{{max_price.price__max}}"
+                                   id="rangeInput" oninput="maxPrice.value=this.value" width="400px;"/>
+                            <form action="" class="s-form mt-20" method="get">
+                                <div id="panelsStayOpen-collapseOne" class="price-input pt-0 m-0 accordion-collapse collapse show accordion-body"
+                                     aria-labelledby="panelsStayOpen-headingOne">
+                                    <div class="field me-1">
+                                        <b>₹</b><input type="number" id="maxPrice" class="input-min form-control form-control-sm"
+                                                      readonly="" name="FilterPrice"
+                                                      onkeyup="rangeInput.value=this.value"
+                                                      value="{{FilterPrice}}{{minMaxPrice.price__min}}">
+                                    </div>
+                                    <div class="add-to-cart d-flex justify-content-start gap-3">
+                                        <button style="border: 2px solid #f1b583; color: #f1b583;" type="submit"
+                                                class="btn" id="buy-now-button">
+                                            <a>Filter</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+              <div class="accordion" id="tagAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                        <button class="accordion-button p-0" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseTwo">
+                            Tags
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingTwo">
+                        <div class="accordion-body">
+                            <div class="list-group">
+                              <form method="get" action="{% url 'collection' %}" id="tagFilterForm">
+                                {% for tag in all_tags %}
+                                    <label class="list-group-item px-0">
+                                        <input class="form-check-input me-1 tag-checkbox" type="checkbox" name="tag" value="{{ tag }}"
+                                            {% if tag in selected_tags %}checked{% endif %}>
+                                        {{ tag }} {{main_category.prosubcat.all.count}}
+                                        {% if tag == tag_param %}
+                                            <i class="fa fa-check text-primary"></i>
+                                        {% endif %}
+                                    </label>
+                                {% endfor %}
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion" id="categoryAccordion">
+              <!-- Sub Categories -->
+              <div class="accordion-item">
+                  <h2 class="accordion-header" id="subCategoryHeading">
+                      <button class="accordion-button p-0 collapsed" type="button" data-bs-toggle="collapse"
+                              data-bs-target="#subCategoryCollapse" aria-expanded="false" aria-controls="subCategoryCollapse">
+                          Sub Categories
+                      </button>
+                  </h2>
+                  <div id="subCategoryCollapse" class="accordion-collapse collapse" aria-labelledby="subCategoryHeading">
+                      <div class="accordion-body">
+                          <div class="list-group">
+                              {% for sub_category in sub_categories %}
+                                  <label class="list-group-item px-0">
+                                      <input class="form-check-input me-1" type="checkbox" value="{{ sub_category.name }}">
+                                      {{ sub_category.name }}
+                                  </label>
+                              {% endfor %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          
+              <!-- Main Categories -->
+              
+              <div class="accordion-item">
+                  <h2 class="accordion-header" id="mainCategoryHeading">
+                      <button class="accordion-button p-0 collapsed" type="button" data-bs-toggle="collapse"
+                              data-bs-target="#mainCategoryCollapse" aria-expanded="false" aria-controls="mainCategoryCollapse">
+                          Main Categories
+                      </button>
+                  </h2>
+                  <div id="mainCategoryCollapse" class="accordion-collapse collapse" aria-labelledby="mainCategoryHeading">
+                      <div class="accordion-body">
+                          <div class="list-group">
+                            {% for category in Category %}
+                            {% for main_category in category.main_category_set.all %}
+                                  <label class="list-group-item px-0">
+                                      <input class="form-check-input me-1" type="checkbox" value="{{ main_category.name }}">
+                                       {{ main_category.name }} {{ Products.count }}
+                                  </label>
+                              {% endfor %}
+                              {% endfor %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                <button class="accordion-button p-0 collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseFour">
+                    Cultural Segregation:
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+                <div class="accordion-body">
+                    <div class="list-group">
+                        <form id="culturalFilterForm">
+                            {% for segregation in AllCulturalSegregations %}
+                                <label class="list-group-item px-0">
+                                    <input type="checkbox" class="form-check-input me-1 cultural-segregation-checkbox" name="cultural_segregation" value="{{ segregation.name }}" {% if segregation.name in SelectedCulturalSegregations %}checked{% endif %}>
+                                    {{ segregation.name }}
+                                </label>
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+              {% comment %} <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                  <button class="accordion-button p-0 collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFive">
+                    photos
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse "
+                  aria-labelledby="panelsStayOpen-headingFive">
+                  <div class="accordion-body">
+                    <div class="list-group">
+                      <label class="list-group-item px-0">
+                        <input class="form-check-input me-1" type="checkbox" value="">
+                        First checkbox
+                      </label>
+                      <label class="list-group-item px-0">
+                        <input class="form-check-input me-1" type="checkbox" value="">
+                        Second checkbox
+                      </label>
+                      <label class="list-group-item px-0">
+                        <input class="form-check-input me-1" type="checkbox" value="">
+                        Third checkbox
+                      </label>
+                      <label class="list-group-item px-0">
+                        <input class="form-check-input me-1" type="checkbox" value="">
+                        Fourth checkbox
+                      </label>
+                      <label class="list-group-item px-0">
+                        <input class="form-check-input me-1" type="checkbox" value="">
+                        Fifth checkbox
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                  <button class="accordion-button p-0 collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseSix">
+                    shape
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse "
+                  aria-labelledby="panelsStayOpen-headingSix">
+                  <div class="accordion-body">
+                    <div class="btn-group shape_style" role="group" aria-label="Basic checkbox toggle button group">
+                      <div class="shape_div">
+                          <input type="checkbox" class="btn-check " id="btncheck1" autocomplete="off">
+                          <label class="btn btn-outline-primary " for="btncheck1"></label>
+                      </div>
+                      <div class="shape_div">
+                          <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                          <label class="btn btn-outline-primary" for="btncheck2"></label>
+                      </div>
+                      <div class="shape_div">
+                          <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                          <label class="btn btn-outline-primary" for="btncheck3"></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> {% endcomment %}
+            </div>
+          </form>
+          <!-- <div class="d-flex justify-content-end">
+            <button type="button" class="btn apply_btn">Apply</button>
+          </div> -->
+        </div>
+        <!-- card -->
+        
+        <div class="col-lg-9 cards-col">
+          <div class="row card-wrapper" id="cards">
+            {% for product in Products %}
+            <div class="col-xl-3 col-lg-4 col-6 col-md-4 pt-lg-4 card-col">
+                <div class="card border-0 collection-img">
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="/{{ product.image}}" class="card-img-top" alt="wedding" >
+                        <div class="card-body p-0 pt-3 pt-lg-4 pb-3 text-center">
+                            <h5 class="card-title">{{ product.product_name }}</h5>
+                            <p class="card-text"><span>₹</span> {{ product.price }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+           
+          
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  <!-- JavaScript code in your HTML file -->
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Get form and checkboxes
+      const form = document.getElementById('tagFilterForm');
+      const checkboxes = form.querySelectorAll('.tag-checkbox');
+
+      // Automatically submit the form when a checkbox is clicked
+      checkboxes.forEach(function (checkbox) {
+          checkbox.addEventListener('change', function () {
+              form.submit();
+          });
+      });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    // Function to update related categories based on the selected sub category
+    function updateRelatedCategories() {
+      // Get the selected sub categories
+      var selectedSubCategories = $('input[name="sub_categories"]:checked').map(function () {
+        return $(this).val();
+      }).get();
+
+      // Show/hide main categories based on the selected sub categories
+      $('.main-category').hide();
+      selectedSubCategories.forEach(function (subCategory) {
+        $('.' + subCategory + '-main-category').show();
+      });
+
+      // Show/hide sup categories based on the selected sub categories
+      $('.sup-category').hide();
+      selectedSubCategories.forEach(function (subCategory) {
+        $('.' + subCategory + '-sup-category').show();
+      });
+    }
+
+    // Attach change event to sub category checkboxes
+    $('input[name="sub_categories"]').change(function () {
+      updateRelatedCategories();
+    });
+
+    // Initial update based on the default state
+    updateRelatedCategories();
+  });
+  $(".form-check-input").on("change", function() {
+    var selectedSubCategories = []; // collect selected sub-categories
+    $(".form-check-input:checked").each(function() {
+        selectedSubCategories.push($(this).val());
+    });
+
+    $.ajax({
+        url: '/path-to-filter-endpoint/',
+        method: 'GET',
+        data: { 'sub_categories': selectedSubCategories },
+        success: function(response) {
+            // Update your content based on the filtered data
+            $("#content-container").html(response);
+        },
+        error: function(error) {
+            console.log("Error:", error);
+        }
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  // Get form and checkboxes
+  const form = document.getElementById('culturalFilterForm'); // Updated form ID here
+  const checkboxes = form.querySelectorAll('.cultural-segregation-checkbox'); // Updated class name here
+
+  // Automatically submit the form when a checkbox is clicked
+  checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener('change', function () {
+          form.submit();
+      });
+  });
+});
+</script>
+
+  {% endblock %}

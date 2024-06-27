@@ -1,0 +1,92 @@
+<div class="container">
+                <form method="post" id="bulkPdfForm">
+                    <div class="certifacate" id="invoiceBulk">
+                        <div class="row ">
+                            <h1>Certificate of training</h1>
+                            <div class="row justify-content-between hederPart align-items-center m-0">
+                                <div class="col-12 col-lg-2">
+                                    <img src="img/logo.png" class="w-100">
+                                </div>
+                                <div class="col-12 col-lg-4 p-0">
+                                    <div class="input-group input-group-sm m-0">
+                                        <span class="input-group-text border-0 p-0" id="basic-addon1">Certificate No. :   </span>
+                                        <td>
+                                            <select id="human_factor" name="human_factor" class="form-control forn-select" required>
+                                                <!-- Dropdown options will be populated dynamically using JavaScript -->
+                                            </select>
+                                        </td>
+                                    </div>
+                                </div>
+                                <div class="body_text mt-0">
+                                    <h2>This is to certify That</h2>
+                                    <div class="row m-0 mt-3 justify-content-center">
+                                        <div class="col-12 col-lg-6 pe-lg-5 offset-1">
+                                            <div class="input-group input-group-sm m-0">
+                                                <span class="input-group-text border-0 p-0" id="basic-addon1">Name :   </span>
+                                                <td>
+                                                    <select id="staff_name" name="staff_name" class="form-control forn-select" required>
+                                                        <!-- Dropdown options will be populated dynamically using JavaScript -->
+                                                    </select>
+                                                </td>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-4 offset-1">
+                                            <div class="input-group input-group-sm m-0">
+                                                <span class="input-group-text border-0 p-0" id="basic-addon1"><em> Staff ID :</em>   </span>
+                                                <td>
+                                                    <select id="staff_no" name="staff_no" class="form-control forn-select" required>
+                                                        <!-- Dropdown options will be populated dynamically using JavaScript -->
+                                                    </select>
+                                                </td>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 pb-0 text-center">
+                                            <h5>Has successfully completed</h5>
+                                            <input type="text"  id="sms" name="sms" class="form-control crtName text-center" value="Human Factors / SMS (Safety Management)" placeholder="xxxxxxxxxxxxxxxxxxx">
+                                        </div>
+                                        <div class="col-8 date_sec">
+                                            <div class="input-group input-group-sm m-0">
+                                                <span class="input-group-text border-0 p-0 pe-1" id="basic-addon1">Training conducted from</span>
+                                                <input type="date" class="form-control text-center p-0" placeholder="dd/mm/yyyy" id="trainingFrom" name="trainingFrom">
+                                                <span class="input-group-text border-0 ps-1 pe-1">to</span>
+                                                <input type="date" class="form-control text-center p-0" placeholder="dd/mm/yyyy" id="trainingTo" name="trainingTo">
+                                                <span class="input-group-text border-0 p-0 ps-1">at Kolkata</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-0 justify-content-center">
+                                        <div class="col-12 col-lg-3 val_input">
+                                            <div class="input-group input-group-sm m-0">
+                                                <span class="input-group-text border-0 p-0" id="basic-addon1">Valid Till :   </span>
+                                                <input type="date" class="form-control" name="validTill" placeholder="dd/mm/yyyy">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row sig_sec m-0 pt-0 pb-0 justify-content-between">
+                                    <div class="col-6 col-lg-3 text-center">
+                                        <img src="img/sig1.webp" class="py-2">
+                                        <h6>
+                                            C.P. Yadav
+                                            <span>GM - Operations</span>
+                                            Instructor
+                                        </h6>
+                                    </div>
+                                    <div class="col-6 col-lg-3 text-center ">
+                                        <img src="img/sig2.png" class="py-2">
+                                        <h6>
+                                            Sandeep Mukherjee
+                                            <span>GM - Standards, Quality, Procedures & Compliance</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-bg">
+                                <img src="img/footer_bg.webp">
+                            </div>
+                           
+                            <button type="button" id="bulkPdfButton" class="btn downloadPDF ms-2">Download All PDFs</button>
+                        </div>
+                    </div>
+                </form>
+            </div>

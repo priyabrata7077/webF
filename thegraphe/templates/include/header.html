@@ -1,0 +1,91 @@
+{% load static %}
+
+<div class="ScrollTop ">
+    <a href="#" class="scrollToTop"><img src="{% static 'assets/image/arrow-up.svg' %}" class="bounce" data-lazy data-src="{% static 'assets/image/arrow-up.svg' %}"></a>
+  </div>
+  <!--end_scrolltop-->
+<header id="header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img src="{% static 'assets/image/logo.png' %}"  data-lazy data-src="{% static 'assets/image/logo.png' %}"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="hamburger" id="hamburger-11">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+          </div>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/collection' %}active{% endif %}" href="{% url 'collection' %}">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/services' %}active{% endif %}" href="{% url 'services' %}">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/rsvp' %}active{% endif %}" href="{% url 'rsvp' %}">RSVP</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/process' %}active{% endif %}" href="{% url 'process' %}">Process</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/wedskey' %}active{% endif %}" href="{% url 'wedskey' %}">Wedskey</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/aboutus' %}active{% endif %}" href="{% url 'aboutus' %}">About us </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/contact' %}active{% endif %}" href="{% url 'contact' %}">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/upload_image' %}active{% endif %}" href="{% url 'upload_image' %}">lens</a>
+            </li>
+          </ul>
+        </div>
+        <div class="ml-auto extra_menu">
+          <!-- <a href=""><i data-feather="search"></i></a> -->
+          <form action="{% url 'collection' %}" method="get" class="search-box d-flex">
+           
+            <input class="form-control hd-search me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+             <button class="btn-search"><img src="{% static 'assets/image/search.svg' %}" width="22px"></button>
+          </form>
+          <!-- <div class="search-box position-relative">
+            <button class="btn-search"><img src="assets/image/search.svg" width="22px"></button>
+            <input type="search" class="input-search" placeholder="Type to Search...">
+          </div> -->
+          <a href="javascript:void(0);" class="position-relative" id="profileinfo">
+            <img src="{% static 'assets/image/login.svg' %}" width="39px">
+          </a>
+          <!-- <div class="cart-icon">
+            
+            <a href="{% url 'cart_detail' %}" class="position-relative">
+              <i class="flaticon-shopping-bag"></i>
+              <img src="{% static 'assets/image/cart.svg' %}" width="18px">
+              
+                <span class="cart_no">{{request.session.cart|length}}</span>
+              </span>
+            </a>
+          </div> -->
+          
+        </div>
+        <div class="user_dropdown" id="profile">
+          <ul>
+            <li><a href="{% url 'profile' %}">My Account</a></li>
+            <li><a href="{% url 'Notification' %}">Notification</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Log out</a></li>
+            {% else %}
+            <li><a href="{% url 'profile' %}">Log in</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article>

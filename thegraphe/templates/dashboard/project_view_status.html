@@ -1,0 +1,342 @@
+{% extends 'dashboard/base.html' %}
+{%  load static %}
+{%  block content %}
+            <div class="mt-5">
+                <div class="row m-0 justify-content-between">
+                    <div class="col-12 col-lg-4 col-md-5">
+                        <div class="p-2 p-lg-5 p-md-3 manage-user-container sticky-top ">
+                            <div class="temp_img_inner">
+                                <img src="assets/image/file-blank-image.png" class="w-100">
+                            </div>
+                            <ul class="prj_det">
+                                <li>
+                                    <span>ID: </span>
+                                    Existing Template
+                                </li>
+                                <li>
+                                    <span>Client Name: </span>
+                                    {{ orders.user.username }}
+                                </li>
+                                <li>
+                                    <span>Template Title: </span>
+                                    Lorem Ipsum is simply dummy text.
+                                </li>
+                                <li>
+                                    <span>SubTitle: </span>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8 col-md-7 ps-lg-4 mt-4 mt-lg-0">
+                        <div class="manage-user-container p-3 p-lg-4 p-md-3 h-100">
+                            <h5 class="client_heading">Details</h5>
+                            <ul class="proj_dets proj_dets_li">
+                                <li>
+                                    <span>Images</span>
+                                    <div class="client_image">
+                                        <a href="assets/image/no-photo.jpg" target="_blank"><img
+                                                src="assets/image/no-photo.jpg"></a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>Phone</span>
+                                    {{orders.user.userprofile.phone_number }}
+                                </li>
+                                <li>
+                                    <span>Billing name</span>
+                                    {{ orders.user.email }}
+                                </li>
+                                <li>
+                                    <span>Email</span>
+                                    {{ orders.user.email }}
+                                </li>
+                                <li>
+                                    <span>GSTIN</span>
+                                    18%
+                                </li>
+                                <li>
+                                    <span>Billing Address</span>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias, consequuntur?
+                                </li>
+
+                            </ul>
+
+                            <h5 class="client_heading mt-3">Your Details</h5>
+                            <ul class="proj_dets ">
+
+                                <li>
+                                    <span>You</span>
+                                    Yes
+                                </li>
+                                <li>
+                                    <span>Full Name</span>
+                                    Lorem Ipsum
+                                </li>
+
+                                <li>
+                                    <span>Instagram ID</span>
+                                    instagram-id
+                                </li>
+                                <li>
+                                    <span>Full Name of Mother</span>
+                                    Lorem Ipsum
+                                </li>
+                                <li>
+                                    <span>Full Name of Father</span>
+                                    Lorem Ipsum
+                                </li>
+                                <li>
+                                    <span>Full Name of Grandmother</span>
+                                    Lorem Ipsum
+                                </li>
+                                <li>
+                                    <span>Full Name of Grandfatherr</span>
+                                    Lorem Ipsum
+                                </li>
+
+                            </ul>
+
+                            <h5 class="client_heading mt-3">Spouse</h5>
+                            <ul class="proj_dets">
+                                <li>
+                                    <span>You</span>
+                                    Yes
+                                </li>
+                                <li>
+                                    <span>Full Name</span>
+                                    Lorem Ipsum
+                                </li>
+
+                                <li>
+                                    <span>Instagram ID</span>
+                                    instagram-id
+                                </li>
+                                <li>
+                                    <span>Full Name of Mother</span>
+                                    Lorem Ipsum
+                                </li>
+                                <li>
+                                    <span>Full Name of Father</span>
+                                    Lorem Ipsum
+                                </li>
+                                <li>
+                                    <span>Full Name of Grandmother</span>
+                                    Lorem Ipsum
+                                </li>
+                                <li>
+                                    <span>Full Name of Grandfatherr</span>
+                                    Lorem Ipsum
+                                </li>
+
+                            </ul>
+
+                            <h5 class="client_heading mt-3">Event Details</h5>
+                            <ul class=" proj_dets_div">
+
+                                <li>
+                                    <div>
+                                        <span>Event Name </span>
+                                        Lorem Ipsum
+                                    </div>
+
+                                    <div>
+                                        <span>Time</span>
+                                        12:12
+                                    </div>
+
+                                    <div>
+                                        <span>Date</span>
+                                        12/12/2022
+                                    </div>
+                                    <div>
+                                        <span>Venue</span>
+                                        Lorem Ipsum
+                                    </div>
+                                    <div>
+                                        <span>Discription</span>
+                                        Lorem Ipsum
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <span>Event Name </span>
+                                        Lorem Ipsum
+                                    </div>
+
+                                    <div>
+                                        <span>Time</span>
+                                        12:12
+                                    </div>
+
+                                    <div>
+                                        <span>Date</span>
+                                        12/12/2022
+                                    </div>
+                                    <div>
+                                        <span>Venue</span>
+                                        Lorem Ipsum
+                                    </div>
+                                    <div>
+                                        <span>Discription</span>
+                                        Lorem Ipsum Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
+                                        recusandae.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <span>Event Name </span>
+                                        Lorem Ipsum
+                                    </div>
+
+                                    <div>
+                                        <span>Time</span>
+                                        12:12
+                                    </div>
+
+                                    <div>
+                                        <span>Date</span>
+                                        12/12/2022
+                                    </div>
+                                    <div>
+                                        <span>Venue</span>
+                                        Lorem Ipsum
+                                    </div>
+                                    <div>
+                                        <span>Discription</span>
+                                        Lorem Ipsum
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                            <h5 class="client_heading mt-3">Add on Services</h5>
+                            <ul class="proj_dets">
+                                <li>
+                                    <span>Logo</span>
+                                    Yes
+                                </li>
+                                <li>
+                                    <span>Price</span>
+                                    5500
+                                </li>
+
+                                <li>
+                                    <span>Event Post Type</span>
+                                    Static
+                                </li>
+                                <li>
+                                    <span>Caricature</span>
+                                    Lorem Ipsum
+                                </li>
+                            </ul>
+
+                            <div class="addon_dive">
+                                <div class="modal fade " id="addonservices" data-bs-backdrop="static" data-bs-keyboard="false"    tabindex="-1"aria-labelledby="addeventLabel"   aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content calendar-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel">Add On Services</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                            <div class="form">
+                                                <div class="row">
+                                                    <div class="form-group mt-2">
+                                                        <label for="title">Logo</label>
+                                                    <select class="form-select form-control form_style ">
+                                                        <option >Select</option>
+                                                        <option value="addlogo">Yes</option>
+                                                        <option value="no">No</option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="addlogo box w-100 mt-3">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label>Logo Title</label>
+                                                                <input type="text" class="form-control form_style" >
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label>Logo Title</label>
+                                                                <input type="text" class="form-control form_style" >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mt-2">
+                                                        <label for="title">Price</label>
+                                                        <input type="text" class="form-control form_style" id="exampleFormControlInput1"
+                                                        value="#450">
+                                                    </div>
+                                                    <div class="form-group mt-2">
+                                                        <label for="title">Event Post Type</label>
+                                                    <select class="form-select form-control form_style ">
+                                                        <option>Select</option>
+                                                        <option value="video">Video</option>
+                                                        <option value="static">Static</option>
+                                                        <option value="illustration">Illustration</option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="video box mt-3">
+                                                       <label class="d-block">Video Time</label>
+                                                       <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                        <label class="form-check-label" for="inlineRadio1">5 Sec</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                        <label class="form-check-label" for="inlineRadio2">10 Sec</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                                        <label class="form-check-label" for="inlineRadio3">12 Sec</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+                                                        <label class="form-check-label" for="inlineRadio4">18 Sec</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">
+                                                        <label class="form-check-label" for="inlineRadio5">20 Sec</label>
+                                                      </div>
+                                                    </div>
+                                                    <div class="static box w-100 mt-3">
+                                                        <label class="d-block">Static</label>
+                                                        <div class="form-check form-check-inline">
+                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                         <label class="form-check-label" for="inlineRadio1">Square</label>
+                                                       </div>
+                                                       <div class="form-check form-check-inline">
+                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                         <label class="form-check-label" for="inlineRadio2">Rectangle</label>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group mt-2">
+                                                        <label for="title">Caricature</label>
+                                                    <select class="form-select form-control form_style ">
+                                                        <option>Select</option>
+                                                        <option>Yes</option>
+                                                        <option>No</option>
+                                                      </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-end">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                              <button type="button" class="btn add-button">Done</button>
+                                            </div>
+                                          </div>
+                                      </div>
+                                </div> 
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}contact{% endblock %}
+{%  load static %}
+{%  block content %}
+<section class="contact_body inner_pagebody">
+    <div class="container-fluid">
+      <h1>Marry without any worry</h1>
+    </div>
+    <div class="row m-0 align-items-center">
+      <div class="col-12 col-mg-6 col-lg-6 contact_img">
+        <img src="{% static 'assets/image/contact_img.png' %}" class="w-100">
+      </div>
+      <div class="col-12 col-mg-6 col-lg-6 ps-lg-5 py-4 py-lg-0">
+        <h6>Get in touch with us</h6>
+        <ul class="address_text">
+          <li>
+              <small><i data-feather="map-pin"></i></small>
+              <span>
+                Godrej Genesis Building, 11th Floor, EN-34, EN Block,<br/> Sector V, Bidhannagar, Kolkata, West Bengal 700105
+              </span>
+          </li>
+          <li>
+            <small><i data-feather="mail"></i></small>
+            <span>
+              connect@thegraphe.com <br/> weddings@thegraphe.com
+            </span>
+          </li>
+          <li>
+            <small><i data-feather="phone"></i></small>
+            <span>
+              +91-9826714541 <br/> +91-9826714541
+            </span>
+        </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row m-0 mt-4 mt-lg-5 mb-lg-5">
+      <div class="col-12 col-mg-6 col-lg-6">
+        <form class="form_section" action="{% url 'submit_form' %}" method="post">
+          {% csrf_token %}
+          <div class="form">
+            <div class="form-control">
+              <input type="text" name="name" id="name" class="form-input" autocomplete="name" placeholder="none" required>
+              <label for="name" class="form-label">Full Name</label>
+            </div>
+            <div class="form-control">
+              <input type="phone" name="phone" id="phone" class="form-input" autocomplete="phone" placeholder="none" required>
+              <label for="phone" class="form-label">Phone No.</label>
+            </div>
+            <div class="form-control">
+              <input type="email" name="email" id="email" class="form-input" autocomplete="email" placeholder="none" required>
+              <label for="email" class="form-label">Email</label>
+            </div>
+            <div class="form-control form-areas h-auto">
+              <textarea name="message" id="message" class="form-input h-auto" rows="3" placeholder="none" required></textarea>
+              <label for="message" class="form-label">Message</label>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn submit_btn">Submit now</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-12 col-mg-6 col-lg-6 ps-lg-5">
+        <img src="{% static 'assets/image/contact_bg2.png' %}" class="w-100 form_image">
+      </div>
+    </div>
+  </section>
+{% endblock %}

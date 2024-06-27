@@ -1,0 +1,121 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}collection{% endblock %}
+{%  load static %}
+{%  block content %}
+
+<div class="bg-light">
+    <div class="container-fluid dashboard-heading">
+        <div class="row m-0 mb-4">
+            <div class="col-lg-6 p-0">
+                <h5 class="text-black mb-4">Collections</h5>
+            </div>
+            <div class="col-lg-6 p-0 d-flex justify-content-end align-content-center align-items-center l_btn">
+                <select id="sources" class="custom-select sources form-control " placeholder="Please Select">
+                    <option value="1" selected="selected">Sort by date</option>
+                    <option>Sort by popularity</option>
+                    <option>Newest first</option>
+                </select>
+                <a href="add_collection" class="add-button desktop-button ms-3">Add Collection</a>
+            </div>
+        </div>
+        <div class="count-container row m-0">
+            <div class="tabbedPanels">
+                <div class="swiper collection-tab-swiper">
+                    <ul class="collection_nav swiper-wrapper tabs">
+                        {% for category in Category %}
+                        <li class="swiper-slide">
+                            <a class="nav-link {% if forloop.first %}active{% endif %}" href="#{{ category.slug }}">
+                                <img src="{% static 'assets/image/st' %}{{ category.id }}.svg" class="div_img d-block">
+                                {{ category.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <div class="tabbedPanels">
+                <!-- Display associated main categories for each category -->
+                {% for category in Category %}
+                <div id="{{ category.slug }}" class="panel swiper collection-tab-swiper">
+                    <ul class="collection_card collection_list collection_nav swiper-wrapper tabs">
+                        {% for main_category in category.main_category_set.all %}
+                        <li class="swiper-slide">
+                            <a class="nav-link" href="#{{ main_category.slug }}">
+                                {{ main_category.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+                {% endfor %}
+
+                <!-- Display products based on main category selection -->
+                {% for category in Category %}
+                {% for main_category in category.main_category_set.all %}
+                <div id="{{ main_category.slug }}" class="panels" style="display:none;">
+                    <ul class="collection_card collection_list">
+                        {% for product in main_category.product_set.all %}
+                        <li>
+                                <span><img src="/{{ product.image }}" id="image"></span>
+                                <span>
+                                    <small class="small_para">ID</small>
+                                    <small>{{product.id}}</small>
+                                </span>
+                                <span>
+                                    <small class="small_para">Product Name</small>
+                                    <small>{{product.product_name}}</small>
+                                </span>
+                                <span>
+                                    <small class="small_para">Instagram Link</small>
+                                    <small>
+                                        <a href="https://www.instagram.com/reel/Cm0w6fHBFdu/?utm_source=ig_web_copy_link"
+                                            target="_blank" data-toggle="tooltip" data-placement="top" title="Insta Reel"> <i class='bx bxl-instagram'></i>
+                                        </a>
+                                    </small>
+                                </span>
+                                <span>
+                                    <small class="small_para">Similar</small>
+                                    <small data-bs-toggle="modal" data-bs-target="#view_similar"
+                                        class="view_pop_up">View
+                                        <i class='bx bx-right-arrow-alt fs-6'></i>
+                                    </small>
+                                </span>
+                                <span>
+                                    <small class="small_para">Status</small>
+                                    <span class="badge bg-success">Active</span>
+                                </span>
+                                <span>
+                                    <small class="small_para">Action</small>
+                                    <a href="{% url 'edit_services' slug=product.slug %}" class="edtBtn" target="_blank" data-toggle="tooltip" title="Edit">Edit</a>
+
+
+                                    <!-- <a href="javascript:void(0);" class="edtBtn" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"><i class='bx bx-trash'></i></a> -->
+                                </span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".panels").hide();
+            $(".collection_list a").click(function(e) {
+                var targetSlug = $(this).attr("href");
+                $(".panels").hide();
+                $(targetSlug).show();
+            });
+        }); 
+    </script>
+    
+    {% endblock %}

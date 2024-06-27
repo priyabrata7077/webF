@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}cart{% endblock %}
+{%  load static %}
+{% load cart_tag %}
+{%  block content %}
+{{ card_add }}
+<section class="cart_body">
+  <div class="container-fluid">
+    <h1 class="view_similar p-0 ">Shopping Cart</h1>
+    <div class="carttable profiletable table-responsive-lg table-responsive-md">
+      <table>
+        <form method="post" action="{% url 'payment' %}">
+          {% csrf_token %}
+          <input type="hidden" name="order_id" value="{{ order.id }}">
+        <thead>
+          <tr>
+            <th scope="col"><span class="d-none">Product</span></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody> 
+          {% if request.session.cart %}
+          {% for key,value in request.session.cart.items %}
+                  <tr>
+                      <td>
+                          <div class="product_name">
+                              <img src="{{value.image}}" alt="{{value.image}}">
+                              <p>
+                                <span>{{ value.name }}</span>
+                                <span>{{ value.product_type }}</span>
+                               
+                                  <small>
+                                      <a href="{% url 'item_clear' value.product_id %}"><i data-feather="trash-2"></i></a>  
+                                  </small>
+                              </p>
+                          </div>
+                      </td>
+                      <td data-label="Quantity">
+                        <div class="num-block skin-2">
+                          <div class="num-in">
+                            <span class="minus">
+                                <a href="{% url 'item_decrement' value.product_id %}" class= "text -center">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                            </span>
+                            <input type="number" class="in-num" min="1" value="{{ value.quantity }}" id="{{ value.product_id }}" />
+                            <span class="plus">
+                                <a href="{% url 'item_increment' value.product_id %}" class= "text -center">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td></td>
+                      <td data-label="Price"><small>₹</small>{{ value.price|multiply:value.quantity }}</td>
+                      
+                                
+                  </tr>
+
+                  
+          {% endfor %}
+          {% else %}
+          <script>
+              window.location.href = "{% url 'collection' %}";
+          </script>
+      {% endif %}
+        </tbody>
+        <tfoot>
+
+          <tr>
+            <td colspan="4">
+              <div class="total_price ms-auto">
+                <!-- <p>
+                  Any additional charges
+                  <span><small>₹</small>1,680</span>
+                </p> -->
+                <!-- <p>
+                  Shipping
+                  <span><small>₹</small>1,680</span>
+                </p> -->
+                <p>
+                  Subtotal
+                  <span><small>₹</small>{{cart_total_amount}}</span>
+                </p>
+              </div>
+              <div class="d-lg-flex d-md-flex justify-content-end align-items-center">
+                <a href="javascript:void(0);" class="shopping_btn"><i data-feather="arrow-left"></i>&nbsp;Continue Shopping</a>
+                <button type="submit" class="btn checkout">Process checkout</button>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+       </form>
+      </table>
+    </div>
+  </div>
+</section>
+
+ 
+  {% endblock %}

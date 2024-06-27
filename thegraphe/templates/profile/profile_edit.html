@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% block title %}Edit_profile{% endblock %}
+{%  load static %}
+{%  block content %}
+<section class="profile">
+    <div class="container-fluid">
+      <div class="username_img">
+        <img src="{{ user.image.url }}" alt="Profile Picture">
+        <h4>
+          <span>Hello,</span>
+          {{ request.user.username }}
+        </h4>
+      </div>
+      <div class="row m-0 mt-4 mt-lg-5">
+        <div class="maxwidth">
+          <div class="ux-vertical-tabs">
+            <div class="tabs sticky-lg-top">
+              <a href="{% url 'order' %}"><button class="lf_menu" data-tab="tab1" href="{% url 'order' %}"><img src="{% static 'assets/image/myorder_icon.svg' %}"> My Orders<span></span></button></a>
+              <a href="{% url 'profile' %}"></a><button class="lf_menu active" data-tab="tab2"><img src="{% static 'assets/image/account_icon.svg' %}"> Account Settings<span></span></button></a>
+              <!-- <button data-tab="tab3"><img src="assets/image/payment.svg"> Card Details<span></span></button> -->
+              <a href="{% url 'payment' %}"></a><button class="lf_menu" data-tab="tab3"><img src="{% static 'assets/image/payment.svg' %}"> Payments<span></span></button></a>
+               <!-- <button class="lf_menu" data-tab="tab4"><img src="{% static 'assets/image/mystuff.svg' %} ">Wishlist<span></span></button> -->
+            </div>
+            <div class="maincontent">
+              <div data-tab="tab1" class="tabcontent">
+                <div class="ux-text">
+                  <h2>Order List</h2>
+                  
+                  <div class="profiletable table-responsive-lg table-responsive-md">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <th class="width-80"></th>
+                          <th>Order Id</th>
+                          <th>Price</th>
+                          <th>Date</th>
+                          <th>Add On</th>
+                          <th>Status</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><img src="{{ product.image }}" class="product_img"></td>
+                          <td>
+                            <span class="d-block">#A915AFLE4FO</span>
+                          </td>
+                          <td data-label="Price"><small><b>₹</b></small>1,680</td>
+                          <td data-label="Date">Aug 5th, 2022</td>
+                          <td data-label="Shipped To">Logo, Video : 8 Sec, Caricature: yes</td>
+                          <td data-label="Shipped To"><strong class="alert-warning tablebach">On Going</strong></td>
+                          <td><a href="javascript:void(0);" class="add_cartbtn" data-bs-toggle="modal" data-bs-target="#track_modal">View Order</a></td>
+                        </tr>
+                        <tr>
+                          <td><img src="{% if user.is_authenticated %}
+                            {{ user.images }}
+                            {% else %}
+                            Please log in.
+                            {% endif %}" class="product_img"></td>
+                          <td>
+                            <span class="d-block">#A915AFLE4FO</span>
+                          </td>
+                          <td data-label="Price"><small><b>₹</b></small>1,680</td>
+                          <td data-label="Date">Aug 5th, 2022</td>
+                          <td data-label="Shipped To">Logo, Video : 8 Sec, Caricature: yes</td>
+                          <td data-label="Shipped To"><strong class="alert-warning tablebach">On Going</strong></td>
+                          <td><a href="javascript:void(0);" class="add_cartbtn" data-bs-toggle="modal" data-bs-target="#track_modal">View Order</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!--end orderlist-->
+              
+              <div data-tab="tab2" class="tabcontent active">
+                <div class="ux-text w-100">
+                  <div class="col-12 col-lg-10">
+                    <h2>My Profile</h2>
+                    <button class="bg-transparent p-0 border-0" id="edit"><i data-feather="edit-3"></i> Edit</button>
+                  </div>
+                  <form method="post" enctype="multipart/form-data">
+                    <div class="row m-0">
+                      <div class="col-12 col-lg-2 p-0">
+                        <div class="imageupload">
+                          <div class="form-group">
+                            <label for="fileField" class="attachment">
+                              <div class="row btn-file">
+                                <div class="btn-file__preview"></div>
+                                <div class="btn-file__actions">
+                                  <div class="btn-file__actions__item col-xs-12 text-center">
+                                    <div class="btn-file__actions__item--shadow">
+                                      <i data-feather="camera"></i>
+                                      <div class="visible-xs-block"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                             <img style="height: auto; align-items: left; width:150px; margin-top:-250px; " src="{{ user.userprofile.image.url }}" alt="Profile Picture">
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-10">
+                        <div style="line-height: 0;">
+                          <label for="username" class="form-label">Full Name</label>
+                          <input type="username"  name="username" class="form-control inputDisabled" disabled="disabled" value="{{ user.username }}">
+                        </div>
+                        <div>
+                          <label for="exampleInputEmail1" class="form-label">Email address</label>
+                          <input type="email" class="form-control" disabled="disabled" value="{{ user.email }}">
+                        </div>
+                        <div>
+                          <label for="exampleInputEmail1" class="form-label">Phone No.</label>
+                          <input type="text" class="form-control inputDisabled" disabled="disabled" value="{{ user.userprofile.phone_number }}">
+                        </div>
+                        <div>
+                          <label for="exampleInputEmail1" class="form-label">password</label>
+                          <input type="password" class="form-control" disabled="disabled" value="1234567890">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <button type="submit" class="btn submit_btn inputDisabled" disabled="disabled">Update now</button>
+                    </div>
+                  </form>
+                
+                </div>
+              </div>
+
+              <!--end Account settings-->
+
+              <!-- <div data-tab="tab3" class="tabcontent">
+                <div class="ux-text w-100">
+                  <h2>My Address</h2>
+                  <form class="row addaddress justify-content-between">
+                    <div class="col-12 col-lg-5">
+                      <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Address Line 1</label>
+                        <textarea type='text' class="form-control" id='address1'  placeholder="Address Line 1"></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Address Line 2</label>
+                        <textarea type='text' class="form-control" id='address2'  placeholder="Address Line 2 "></textarea>
+                      </div>
+                      <button type="button" id='add' class="btn addprofile_btn">Add Address</button>
+                    </div>
+                    <div class="col-12 col-lg-6 border-left">
+                      <div class="plans">
+                        <label class="plan basic-plan" for="basic">
+                          <input checked type="radio" name="plan" id="basic" />
+                          <div class="plan-content">
+                            <div class="plan-details">
+                              <span>Godrej Genesis Building, 17th Floor EN-34 EN Block West Bengal Sector V Bidhannagar Kolkata 700105</span>
+                            </div>
+                          </div>
+                        </label>
+                    
+                        <label class="plan complete-plan" for="complete">
+                          <input type="radio" id="complete" name="plan" />
+                          <div class="plan-content">
+                            <div class="plan-details">
+                              <span>J92M+P72, Kolkata Station Rd, Belgachia, Kolkata, West Bengal 700004</span>
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <button type="button" class="btn submit_btn">Update now</button>
+                    </div>
+                  </form>
+                </div>
+              </div> -->
+              <!--end Add card-->
+
+              <div data-tab="tab3" class="tabcontent">
+                <div class="ux-text">
+                  <h2>Payment List</h2>
+                  <div class="wishlist_table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th class="width-50">Id</th>
+                          <th>Template</th>
+                          <th>Price</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td data-label="Id">1</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <small class="def_pic"><img src="assets/image/diffolt_pic.jpg"></small>
+                              <span class="itemName">Lorem Ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, quis?</span>
+                            </div>
+                          </td>
+                          <td data-label="Price"><b>₹</b> 1,680</td>
+                          <td data-label="Status"><strong class="alert-success">Successful</strong></td>
+                          <td data-label="Action">
+                            <!-- <a href="javascript:void(0);" class="delite_btn"><i data-feather="trash-2"></i></a> -->
+                          </td>
+                        </tr>
+                        <tr>
+                          <td data-label="Id">1</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <small class="def_pic"><img src="assets/image/diffolt_pic.jpg"></small>
+                              <span class="itemName">Lorem Ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, quis?</span>
+                            </div>
+                          </td>
+                          <td data-label="Price"><b>₹</b> 1,680</td>
+                          <td data-label="Status"><strong class="alert-warning">Pending</strong></td>
+                          <td data-label="Action">
+                            <a href="cart" class="add_cartbtn">Paynow</a>
+                            <!-- <a href="javascript:void(0);" class="delite_btn"><i data-feather="trash-2"></i></a> -->
+                          </td>
+                        </tr>
+                        <tr>
+                          <td data-label="Id">1</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <small class="def_pic"><img src="assets/image/diffolt_pic.jpg"></small>
+                              <span class="itemName">Lorem Ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, quis?</span>
+                            </div>
+                          </td>
+                          <td data-label="Price"><b>₹</b> 1,680</td>
+                          <td data-label="Status"><strong class="alert-danger">Cancel</strong></td>
+                          <td data-label="Action">
+                            <a href="cart" class="add_cartbtn">Try now</a>
+                            <!-- <a href="javascript:void(0);" class="delite_btn"><i data-feather="trash-2"></i></a> -->
+                          </td>
+                        </tr>
+                      </tbody>
+                      
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div data-tab="tab4" class="tabcontent">
+                <div class="ux-text">
+                  <h2>My Wishlist</h2>
+                  <div class="wishlist_table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th class="width-50">Id</th>
+                          <th>Template</th>
+                          <th>Price</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td data-label="Id">1</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <small class="def_pic"><img src="assets/image/diffolt_pic.jpg"></small>
+                              <span class="itemName">Lorem Ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, quis?</span>
+                            </div>
+                          </td>
+                          <td data-label="Price"><b>₹</b> 1,680</td>
+                          <td data-label="Status">In Stock</td>
+                          <td data-label="Action">
+                            <a href="cart" class="add_cartbtn">Add to Cart</a>
+                            <a href="javascript:void(0);" class="delite_btn"><i data-feather="trash-2"></i></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td data-label="Id">1</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <small class="def_pic"><img src="assets/image/diffolt_pic.jpg"></small>
+                              <span class="itemName">Lorem Ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, quis?</span>
+                            </div>
+                          </td>
+                          <td data-label="Price"><b>₹</b> 1,680</td>
+                          <td data-label="Status">In Stock</td>
+                          <td data-label="Action">
+                            <a href="cart" class="add_cartbtn">Add to Cart</a>
+                            <a href="javascript:void(0);" class="delite_btn"><i data-feather="trash-2"></i></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td data-label="Id">1</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <small class="def_pic"><img src="assets/image/diffolt_pic.jpg"></small>
+                              <span class="itemName">Lorem Ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, quis?</span>
+                            </div>
+                          </td>
+                          <td data-label="Price"><b>₹</b> 1,680</td>
+                          <td data-label="Status">In Stock</td>
+                          <td data-label="Action">
+                            <a href="cart" class="add_cartbtn">Add to Cart</a>
+                            <a href="javascript:void(0);" class="delite_btn"><i data-feather="trash-2"></i></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td data-label="Id">1</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <small class="def_pic"><img src="assets/image/diffolt_pic.jpg"></small>
+                              <span class="itemName">Lorem Ipsum Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, quis?</span>
+                            </div>
+                          </td>
+                          <td data-label="Price"><b>₹</b> 1,680</td>
+                          <td data-label="Status">In Stock</td>
+                          <td data-label="Action">
+                            <a href="cart" class="add_cartbtn">Add to Cart</a>
+                            <a href="javascript:void(0);" class="delite_btn"><i data-feather="trash-2"></i></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                      
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}

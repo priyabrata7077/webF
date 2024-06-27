@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}collection{% endblock %}
+{%  load static %}
+{%  block content %}
+
+<div class="container">
+    <h1>{{ category.name }}</h1>
+    <div class="category-banner">
+        <img src="{{ category.banner.url }}" alt="{{ category.name }}">
+    </div>
+    <h2>Subcategories</h2>
+    <ul>
+        {% for subcategory in subcategories %}
+            <li>
+                <a href="{% url 'main_category_page' slug=subcategory.slug %}">{{ subcategory.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+{% endblock %}

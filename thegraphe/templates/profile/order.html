@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}order{% endblock %}
+{%  load static %}
+{%  block content %}
+
+<section class="profile">
+  <div class="container-fluid">
+    <div class="username_img">
+      <img src="{{ user.image.url }}" alt="Profile Picture">
+      <h4>
+        <span>Hello,</span>
+        {{ request.user.username }}
+      </h4>
+    </div>
+    <div class="row m-0 mt-4 mt-lg-5">
+      <div class="maxwidth">
+        <div class="ux-vertical-tabs">
+          <div class="tabs sticky-lg-top">
+            <a href="{% url 'order' %}"><button class="lf_menu" data-tab="tab1" href="{% url 'order' %}"><img src="{% static 'assets/image/myorder_icon.svg' %}"> My Orders<span></span></button></a>
+            <a href="{% url 'profile' %}"></a><button class="lf_menu active" data-tab="tab2"><img src="{% static 'assets/image/account_icon.svg' %}"> Account Settings<span></span></button></a>
+            <!-- <button data-tab="tab3"><img src="assets/image/payment.svg"> Card Details<span></span></button> -->
+            <a href="{% url 'payment' %}"></a><button class="lf_menu" data-tab="tab3" href="{% url 'payment' %}"><img src="{% static 'assets/image/payment.svg' %}"> Payments<span></span></button></a>
+             <!-- <button class="lf_menu" data-tab="tab4"><img src="{% static 'assets/image/mystuff.svg' %} ">Wishlist<span></span></button> -->
+          </div>
+          
+             <div class="container">
+                <h1>Order Confirmation</h1>
+                <p>Your recent orders:</p>
+                
+                <ul>
+                  
+                  {% for order_item in order %}
+                  <div class="order">
+                    Product: {{ order_item.product_name }}<br>
+                    Quantity: {{ order_item.quantity }}<br>
+                    Price: {{ order_item.product.price }}
+                  </div>
+                  {% endfor %}
+
+                </ul>
+           </div>
+</section>
+  {%  endblock %}

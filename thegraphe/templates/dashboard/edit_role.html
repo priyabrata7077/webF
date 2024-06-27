@@ -1,0 +1,33 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Edit Role{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<div class="container-fluid dashboard-heading">
+    <div class="row m-0 mb-4">
+        <div class="col-lg-6 p-0">
+            <h5 class="text-black mb-4">Edit Role: {{ role.name }}</h5>
+        </div>
+    </div>
+
+    <div class="row m-0">
+        <div class="col-lg-12 p-0">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Role Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    {{ form.description }}
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="{% url 'roles' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

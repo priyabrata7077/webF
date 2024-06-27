@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}wedskey{% endblock %}
+{%  load static %}
+{%  block content %}
+<section class="webskey_section overflow-hidden">
+    <div class="container-fluid">
+      <div class="row m-0 justify-content-between">
+        <div class="col-12 col-lg-7 col-md-7">
+          <h1>WEDSKEY <span>Unlock the excitement!</span></h1>
+          <p>
+            Get the key to conducting your dream wedding effortlessly with our wedding management app, WEDSKEY. This application enables you to do everything from sharing your wedding save the date cards and caricature video invitations to managing wedding events, all in one app!
+          </p>
+        </div>
+        <div class="col-12 col-lg-5 col-md-5">
+          <div class="wedskey_banner">
+            <img src="{% static 'assets/image/wrdskey_bg.png' %}">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid pt-12">
+      <div class="row m-0 app_features">
+        <h2>App Features</h2>
+        <div class="brands">
+          <div class="brand">
+            <div class="featur_icon">
+              <img src="{% static 'assets/image/app_ic1.png' %}"/>
+            </div>
+            <p>
+              Easily share information about accommodation and wedding events with guests
+            </p>
+          </div>
+          <div class="brand">
+            <div class="featur_icon">
+              <img src="{% static 'assets/image/app_ic2.png' %}"/>
+            </div>
+            <p>
+              Manage multiple wedding events
+            </p>
+          </div>
+          <div class="brand">
+            <div class="featur_icon">
+              <img src="{% static 'assets/image/app_ic3.png' %}"/>
+            </div>
+            <p>
+              Send personalised notifications to guests
+            </p>
+          </div>
+          <div class="brand">
+            <div class="featur_icon">
+              <img src="{% static 'assets/image/app_ic4.png' %}"/>
+            </div>
+            <p>
+              Livestream your wedding / Share wedding pictures with just one click
+
+            </p>
+          </div>
+          <div class="brand">
+            <div class="featur_icon">
+              <img src="{% static 'assets/image/app_ic5.png' %}"/>
+            </div>
+            <p>
+              Affordably priced wedding management software
+            </p>
+          </div>
+          <div class="brand">
+            <div class="featur_icon">
+              <img src="{% static 'assets/image/app_ic6.png' %}"/>
+            </div>
+            <p>
+              Send invitations with a single click
+            </p>
+          </div>
+          <div class="brand">
+            <div class="featur_icon">
+              <img src="{% static 'assets/image/app_ic7.png' %}"/>
+            </div>
+            <p>
+              Receive immediate feedback
+            </p>
+          </div>
+          <div class="brand">
+            <div class="featur_icon">
+              <img src="{% static 'assets/image/app_ic8.png' %}"/>
+            </div>
+            <p>
+              Track your guests as they arrive at the wedding venue
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
